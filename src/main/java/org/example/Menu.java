@@ -19,21 +19,17 @@ public class Menu{
             case 1:
                 System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 loginMenu();
-
                 break;
-
             case 2:
                 System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 System.out.println("You selected Exit, Goodbye");
                 System.exit(0);
                 break;
-
             default:
                 System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 System.out.println("You should select 1 or 2 button on keypad");
                 break;
         }
-
     }
 
     public static void loginMenu() {
@@ -67,11 +63,8 @@ public class Menu{
             case 0:
                 System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                 mainMenu();
-
                 break;
-
             default:
-
                 break;
         }
     }
@@ -90,32 +83,22 @@ public class Menu{
 
         switch(selection) {
             case 1:
-
                 depositMenu();
                 break;
-
             case 2:
                 withdrawalMenu();
-
                 break;
-
             case 3:
                 checkAccountBalanceMenu();
-
                 break;
-
             case 4:
                 currencyToBeExchangeMenu();
-
                 break;
-
             case 0:
                 clientNumber = 0;
                 clientPassword = '0';
                 loginMenu();
-
                 break;
-
             default:
                 System.out.println("You should select 0 - 4 button on keypad");
                 break;
@@ -132,7 +115,6 @@ public class Menu{
         System.out.println("5. NOK");
         System.out.println("6. DKK");
         System.out.println("0. Cancel to previous menu");
-
 
         Scanner scan = new Scanner(System.in);
         int selectedCurrencyToDeposit = scan.nextInt();
@@ -176,38 +158,29 @@ public class Menu{
         System.out.println("6. DKK");
         System.out.println("0. Cancel to previous menu");
 
-
         Scanner scan = new Scanner(System.in);
         int selectedCurrencyToWithdrawal = scan.nextInt();
-
 
         switch(selectedCurrencyToWithdrawal) {
             case 1:
                 amountMenu();
                 break;
-
             case 2:
                 amountMenu();
                 break;
-
             case 3:
                 amountMenu();
                 break;
-
             case 4:
                 amountMenu();
                 break;
-
             case 0:
                 afterLoginMenu();
                 break;
-
             default:
                 System.out.println("You should select 0 - 6 button on keypad");
                 break;
         }
-
-
     }
 
     public static void checkAccountBalanceMenu(){
@@ -220,7 +193,6 @@ public class Menu{
         System.out.println(" 24 000 	NOK");
         System.out.println(" 50 000 	DKK");
         System.out.println("0. Cancel to previous menu");
-
 
         Scanner scan = new Scanner(System.in);
         int selection = scan.nextInt();
@@ -242,10 +214,8 @@ public class Menu{
         System.out.println("6. DKK");
         System.out.println("0. Cancel to previous menu");
 
-
         Scanner scan = new Scanner(System.in);
         int selectedCurrencyToBeExchange = scan.nextInt();
-
 
         switch(selectedCurrencyToBeExchange) {
             case 1:
@@ -272,7 +242,6 @@ public class Menu{
                 System.out.println("You should select 0 - 6 button on keypad");
                 break;
         }
-
 
     }
 
@@ -369,7 +338,6 @@ public class Menu{
         int amount = scan.nextInt();
 
         afterLoginMenu();
-
     }
 
     public static void amountToBeExchangeMenu(){
