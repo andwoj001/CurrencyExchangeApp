@@ -123,28 +123,22 @@ public class Menu{
             case 1:
                 amountMenu();
                 break;
-
             case 2:
                 amountMenu();
                 break;
-
             case 3:
                 amountMenu();
                 break;
-
             case 4:
                 amountMenu();
                 break;
-
             case 0:
                 afterLoginMenu();
                 break;
-
             default:
                 System.out.println("You should select 0 - 6 button on keypad");
                 break;
         }
-
     }
 
     public static void withdrawalMenu(){
@@ -221,28 +215,22 @@ public class Menu{
             case 1:
                 amountToBeExchangeMenu();
                 break;
-
             case 2:
                 amountToBeExchangeMenu();
                 break;
-
             case 3:
                 amountToBeExchangeMenu();
                 break;
-
             case 4:
                 amountToBeExchangeMenu();
                 break;
-
             case 0:
                 afterLoginMenu();
                 break;
-
             default:
                 System.out.println("You should select 0 - 6 button on keypad");
                 break;
         }
-
     }
 
     public static void currencyToBeExchangedForMenu(){
