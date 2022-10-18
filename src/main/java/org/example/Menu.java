@@ -48,13 +48,13 @@ public class Menu{
             switch (selection) {
                 case 1:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("Enter your 6-digit client number: " + "\n");
+                    System.out.println("Enter your 6-digit client number: ");
                     clientNumber = scan.nextInt();
                     loginMenu();
                     break;
                 case 2:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("Enter your password: " + "\n");
+                    System.out.println("Enter your password: ");
                     clientPassword = scan.next().charAt(0);
                     loginMenu();
                     break;
@@ -305,7 +305,7 @@ public class Menu{
 
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Enter amount: " + "\n");
+            System.out.println("Enter amount: ");
 
             amount = scan.nextInt();
         }while(amount < 0);
@@ -319,7 +319,7 @@ public class Menu{
 
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Enter amount: " + "\n");
+            System.out.println("Enter amount: ");
 
             amount = scan.nextInt();
         }while(amount < 0);
