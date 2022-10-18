@@ -13,7 +13,7 @@ public class Menu{
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("*** Currency Exchange ***");
             System.out.println("1. Login");
-            System.out.println("2. Exit");
+            System.out.println("0. Exit");
 
             selection = scan.nextInt();
 
@@ -22,7 +22,7 @@ public class Menu{
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     loginMenu();
                     break;
-                case 2:
+                case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You selected Exit, Goodbye");
                     System.exit(0);
@@ -76,7 +76,8 @@ public class Menu{
             System.out.println("1. Deposit");
             System.out.println("2. Withdrawal");
             System.out.println("3. Check account balance");
-            System.out.println("4. Currency exchange");
+            System.out.println("4. Check account balance history");
+            System.out.println("5. Currency exchange");
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -92,6 +93,9 @@ public class Menu{
                     checkAccountBalanceMenu();
                     break;
                 case 4:
+                    checkAccountBalanceHistoryMenu();
+                    break;
+                case 5:
                     currencyToBeExchangeMenu();
                     break;
                 case 0:
@@ -100,7 +104,7 @@ public class Menu{
                     loginMenu();
                     break;
             }
-        }while(selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4);
+        }while(selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5);
     }
 
     public static void depositMenu(){
@@ -144,6 +148,48 @@ public class Menu{
                     break;
             }
         }while(selectedCurrencyToDeposit != 0 && selectedCurrencyToDeposit != 1 && selectedCurrencyToDeposit != 2 && selectedCurrencyToDeposit != 3 && selectedCurrencyToDeposit != 4 && selectedCurrencyToDeposit != 5 && selectedCurrencyToDeposit != 6);
+    }
+
+    public static void checkAccountBalanceHistoryMenu() {
+        int selection;
+
+        do {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("Select currency to check its balance history:");
+            System.out.println("1. PLN");
+            System.out.println("2. USD");
+            System.out.println("3. EUR");
+            System.out.println("4. CZK");
+            System.out.println("5. NOK");
+            System.out.println("6. DKK");
+            System.out.println("0. Cancel to previous menu");
+
+            selection = scan.nextInt();
+
+            switch (selection) {
+                case 1:
+                    balanceHistoryMenu();
+                    break;
+                case 2:
+                    balanceHistoryMenu();
+                    break;
+                case 3:
+                    balanceHistoryMenu();
+                    break;
+                case 4:
+                    balanceHistoryMenu();
+                    break;
+                case 5:
+                    balanceHistoryMenu();
+                    break;
+                case 6:
+                    balanceHistoryMenu();
+                    break;
+                case 0:
+                    afterLoginMenu();
+                    break;
+            }
+        }while(selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6);
     }
 
     public static void withdrawalMenu(){
@@ -306,9 +352,16 @@ public class Menu{
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Enter amount: ");
-
             amount = scan.nextInt();
         }while(amount < 0);
+
+        int scanner;
+        do {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("The operation has been completed successfully. The account balance has been updated");
+            System.out.println("0. Exit to client panel");
+            scanner = scan.nextInt();
+        }while(scanner != 0);
 
         afterLoginMenu();
     }
@@ -331,6 +384,20 @@ public class Menu{
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("The currency has been exchanged");
+            System.out.println("0. Exit to client panel");
+            scanner = scan.nextInt();
+        }while(scanner != 0);
+        afterLoginMenu();
+    }
+
+    private static void balanceHistoryMenu() {
+        int scanner;
+        do {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("History of transactions (last 3):");
+            System.out.println("18-10-2022 +200 PLN; balance after operation: 10 500 PLN");
+            System.out.println("16-10-2022 +100 PLN; balance after operation: 10 300 PLN");
+            System.out.println("10-10-2022 +100 PLN; balance after operation: 10 200 PLN");
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
         }while(scanner != 0);
