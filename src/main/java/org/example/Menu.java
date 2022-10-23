@@ -2,7 +2,7 @@ package org.example;
 
 import java.util.Scanner;
 
-public class Menu{
+public class Menu {
     static int clientNumber = 0;
     static char clientPassword = '0';
     static Scanner scan = new Scanner(System.in);
@@ -63,10 +63,10 @@ public class Menu{
                     mainMenu();
                     break;
             }
-        }while(selection != 0 && selection != 1 && selection != 2);
+        } while (selection != 0 && selection != 1 && selection != 2);
     }
 
-    public static void afterLoginMenu(){
+    public static void afterLoginMenu() {
 
         int selection;
 
@@ -104,10 +104,10 @@ public class Menu{
                     loginMenu();
                     break;
             }
-        }while(selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5);
+        } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5);
     }
 
-    public static void depositMenu(){
+    public static void depositMenu() {
 
         int selectedCurrencyToDeposit;
 
@@ -147,7 +147,7 @@ public class Menu{
                     afterLoginMenu();
                     break;
             }
-        }while(selectedCurrencyToDeposit != 0 && selectedCurrencyToDeposit != 1 && selectedCurrencyToDeposit != 2 && selectedCurrencyToDeposit != 3 && selectedCurrencyToDeposit != 4 && selectedCurrencyToDeposit != 5 && selectedCurrencyToDeposit != 6);
+        } while (selectedCurrencyToDeposit != 0 && selectedCurrencyToDeposit != 1 && selectedCurrencyToDeposit != 2 && selectedCurrencyToDeposit != 3 && selectedCurrencyToDeposit != 4 && selectedCurrencyToDeposit != 5 && selectedCurrencyToDeposit != 6);
     }
 
     public static void checkAccountBalanceHistoryMenu() {
@@ -189,10 +189,10 @@ public class Menu{
                     afterLoginMenu();
                     break;
             }
-        }while(selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6);
+        } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6);
     }
 
-    public static void withdrawalMenu(){
+    public static void withdrawalMenu() {
 
         int selectedCurrencyToWithdrawal;
 
@@ -232,10 +232,10 @@ public class Menu{
                     afterLoginMenu();
                     break;
             }
-        }while(selectedCurrencyToWithdrawal != 0 && selectedCurrencyToWithdrawal != 1 && selectedCurrencyToWithdrawal != 2 && selectedCurrencyToWithdrawal != 3 && selectedCurrencyToWithdrawal != 4 && selectedCurrencyToWithdrawal != 5 && selectedCurrencyToWithdrawal != 6);
+        } while (selectedCurrencyToWithdrawal != 0 && selectedCurrencyToWithdrawal != 1 && selectedCurrencyToWithdrawal != 2 && selectedCurrencyToWithdrawal != 3 && selectedCurrencyToWithdrawal != 4 && selectedCurrencyToWithdrawal != 5 && selectedCurrencyToWithdrawal != 6);
     }
 
-    public static void checkAccountBalanceMenu(){
+    public static void checkAccountBalanceMenu() {
 
         int selection;
 
@@ -255,13 +255,13 @@ public class Menu{
             if (selection == 0) {
                 afterLoginMenu();
             }
-        }while(selection != 0);
+        } while (selection != 0);
     }
 
-    public static void currencyToBeExchangeMenu(){
+    public static void currencyToBeExchangeMenu() {
 
         int selectedCurrencyToBeExchange;
-        
+
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to be exchange:");
@@ -298,13 +298,13 @@ public class Menu{
                     afterLoginMenu();
                     break;
             }
-        }while(selectedCurrencyToBeExchange != 0 && selectedCurrencyToBeExchange != 1 && selectedCurrencyToBeExchange != 2 && selectedCurrencyToBeExchange != 3 && selectedCurrencyToBeExchange != 4 && selectedCurrencyToBeExchange != 5 && selectedCurrencyToBeExchange != 6);
+        } while (selectedCurrencyToBeExchange != 0 && selectedCurrencyToBeExchange != 1 && selectedCurrencyToBeExchange != 2 && selectedCurrencyToBeExchange != 3 && selectedCurrencyToBeExchange != 4 && selectedCurrencyToBeExchange != 5 && selectedCurrencyToBeExchange != 6);
     }
 
-    public static void currencyToBeExchangedForMenu(){
+    public static void currencyToBeExchangedForMenu() {
 
         int selectedCurrencyToBeExchangedFor;
-        
+
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to be exchanged for:");
@@ -342,10 +342,10 @@ public class Menu{
                     currencyToBeExchangeMenu();
                     break;
             }
-        }while(selectedCurrencyToBeExchangedFor != 0 && selectedCurrencyToBeExchangedFor != 1 && selectedCurrencyToBeExchangedFor != 2 && selectedCurrencyToBeExchangedFor != 3 && selectedCurrencyToBeExchangedFor != 4 && selectedCurrencyToBeExchangedFor != 5 && selectedCurrencyToBeExchangedFor != 6);
+        } while (selectedCurrencyToBeExchangedFor != 0 && selectedCurrencyToBeExchangedFor != 1 && selectedCurrencyToBeExchangedFor != 2 && selectedCurrencyToBeExchangedFor != 3 && selectedCurrencyToBeExchangedFor != 4 && selectedCurrencyToBeExchangedFor != 5 && selectedCurrencyToBeExchangedFor != 6);
     }
 
-    public static void amountMenu(){
+    public static void amountMenu() {
 
         int amount;
 
@@ -353,7 +353,7 @@ public class Menu{
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Enter amount: ");
             amount = scan.nextInt();
-        }while(amount < 0);
+        } while (amount < 0);
 
         int scanner;
         do {
@@ -361,12 +361,12 @@ public class Menu{
             System.out.println("The operation has been completed successfully. The account balance has been updated");
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
-        }while(scanner != 0);
+        } while (scanner != 0);
 
         afterLoginMenu();
     }
 
-    public static void amountToBeExchangeMenu(){
+    public static void amountToBeExchangeMenu() {
 
         int amount;
 
@@ -375,18 +375,18 @@ public class Menu{
             System.out.println("Enter amount: ");
 
             amount = scan.nextInt();
-        }while(amount < 0);
+        } while (amount < 0);
         currencyToBeExchangedForMenu();
     }
 
-    public static void theCurrencyHasBeenExchangeMenu(){
+    public static void theCurrencyHasBeenExchangeMenu() {
         int scanner;
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("The currency has been exchanged");
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
-        }while(scanner != 0);
+        } while (scanner != 0);
         afterLoginMenu();
     }
 
@@ -400,7 +400,7 @@ public class Menu{
             System.out.println("10-10-2022 +100 PLN; balance after operation: 10 200 PLN");
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
-        }while(scanner != 0);
+        } while (scanner != 0);
         afterLoginMenu();
     }
 }
