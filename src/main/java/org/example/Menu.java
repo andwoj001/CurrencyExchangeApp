@@ -1,4 +1,11 @@
 package org.example;
+// skroty klawiaturowe:
+// Ctrl+Shift+NumPad - / Ctrl+Shift+NumPad + -> zwijanie / rozwijanie metod
+// Shift+F10 -> Run metody Main
+// Ctrl+/ -> zakomentowanie zaznaczonego obszaru
+
+//todo: login i haslo maja byc jeden po drugim a nie rownolegle <- done
+//todo: po zdeponowaniu kwoty jakiejs waluty balance powinien sie powiekszac, zrobmy balance w pliku tekstowym i edytujmy go za kazdym depozytem
 
 import java.util.Scanner;
 
@@ -20,7 +27,7 @@ public class Menu {
             switch (selection) {
                 case 1:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    loginMenu();
+                    clientNumberLoginMenu();
                     break;
                 case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -31,16 +38,15 @@ public class Menu {
         } while (selection != 1 && selection != 2);
     }
 
-    public static void loginMenu() {
+    public static void clientNumberLoginMenu() {
         int selection;
-        if (clientNumber == 123456 && "ABC123".contains(String.valueOf(clientPassword))) {
-            afterLoginMenu();
-        }
+
         do {
+            //and password to activate client panel
+            //System.out.println("2. Enter your password");
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println(">> Enter your client number and password to activate client panel <<" + "\n");
             System.out.println("1. Enter your client number");
-            System.out.println("2. Enter your password");
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -50,20 +56,47 @@ public class Menu {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("Enter your 6-digit client number: ");
                     clientNumber = scan.nextInt();
-                    loginMenu();
+                    clientPasswordLoginMenu();
                     break;
-                case 2:
+//                case 2:
+//                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+//                    System.out.println("Enter your password: ");
+//                    clientPassword = scan.next().charAt(0);
+//                    loginMenu();
+//                    break;
+                case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("Enter your password: ");
+                    mainMenu();
+                    break;
+            }
+        } while (selection != 0 && selection != 1);
+    }
+
+    public static void clientPasswordLoginMenu() {
+        int selection;
+
+        do {
+            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            System.out.println("1. Enter your client password");
+            System.out.println("0. Cancel to previous menu");
+
+            selection = scan.nextInt();
+
+            switch (selection) {
+                case 1:
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Enter your client password: ");
                     clientPassword = scan.next().charAt(0);
-                    loginMenu();
+                    if (clientNumber == 123456 && "ABC123".contains(String.valueOf(clientPassword))) {
+                        afterLoginMenu();
+                    }
                     break;
                 case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     mainMenu();
                     break;
             }
-        } while (selection != 0 && selection != 1 && selection != 2);
+        } while (selection != 0 && selection != 1);
     }
 
     public static void afterLoginMenu() {
@@ -101,7 +134,7 @@ public class Menu {
                 case 0:
                     clientNumber = 0;
                     clientPassword = '0';
-                    loginMenu();
+                    mainMenu();
                     break;
             }
         } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5);
@@ -114,12 +147,7 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to deposit:");
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
+            printCurrencySelectionMenu();
             System.out.println("0. Cancel to previous menu");
 
             selectedCurrencyToDeposit = scan.nextInt();
@@ -156,12 +184,7 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to check its balance history:");
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
+            printCurrencySelectionMenu();
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -199,12 +222,7 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to withdrawal:");
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
+            printCurrencySelectionMenu();
             System.out.println("0. Cancel to previous menu");
 
             selectedCurrencyToWithdrawal = scan.nextInt();
@@ -265,12 +283,7 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to be exchange:");
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
+            printCurrencySelectionMenu();
             System.out.println("0. Cancel to previous menu");
 
             selectedCurrencyToBeExchange = scan.nextInt();
@@ -308,12 +321,7 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Select currency to be exchanged for:");
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
+            printCurrencySelectionMenu();
             System.out.println("0. Cancel to previous menu");
 
             selectedCurrencyToBeExchangedFor = scan.nextInt();
@@ -402,5 +410,14 @@ public class Menu {
             scanner = scan.nextInt();
         } while (scanner != 0);
         afterLoginMenu();
+    }
+
+    public static void printCurrencySelectionMenu() {
+            System.out.println("1. PLN");
+            System.out.println("2. USD");
+            System.out.println("3. EUR");
+            System.out.println("4. CZK");
+            System.out.println("5. NOK");
+            System.out.println("6. DKK");
     }
 }
