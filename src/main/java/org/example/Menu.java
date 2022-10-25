@@ -420,4 +420,39 @@ public class Menu {
             System.out.println("5. NOK");
             System.out.println("6. DKK");
     }
+
+    public static void calculateAccountBalance(char selectedCurrency, char typeOfTransaction, int amount) {
+        int pln = 0;
+        int usd = 0;
+        int eur = 0;
+        int czk = 0;
+        int nok = 0;
+        int dkk = 0;
+
+        if ("PLN".contains(String.valueOf(selectedCurrency)) && "deposit".contains(String.valueOf(typeOfTransaction))) {
+            pln = pln + amount;
+        }
+
+
+        switch(selectedCurrency) {
+            case "PLN":
+                System.out.println("1. PLN");
+                break;
+            case "USD":
+                System.out.println("1. PLN");
+                break;
+            case "EUR":
+                System.out.println("1. PLN");
+                break;
+            case "CZK":
+                System.out.println("1. PLN");
+                break;
+            case "NOK":
+                System.out.println("1. PLN");
+                break;
+            case "DKK":
+                System.out.println("1. PLN");
+                break;
+        }
+    }
 }
