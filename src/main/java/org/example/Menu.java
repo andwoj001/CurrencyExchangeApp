@@ -13,6 +13,16 @@ public class Menu {
     static int clientNumber = 0;
     static char clientPassword = '0';
     static Scanner scan = new Scanner(System.in);
+    static String currencySelectedToCalculation_Deposit;
+
+    static int amount;
+
+    static int balancePLN = 0;
+    static int balanceUSD = 0;
+    static int balanceEUR = 0;
+    static int balanceCZK = 0;
+    static int balanceNOK = 0;
+    static int balanceDKK = 0;
 
     public static void mainMenu() {
         int selection;
@@ -154,21 +164,27 @@ public class Menu {
 
             switch (selectedCurrencyToDeposit) {
                 case 1:
+                    currencySelectedToCalculation_Deposit = "PLN";
                     amountMenu();
                     break;
                 case 2:
+                    currencySelectedToCalculation_Deposit = "USD";
                     amountMenu();
                     break;
                 case 3:
+                    currencySelectedToCalculation_Deposit = "EUR";
                     amountMenu();
                     break;
                 case 4:
+                    currencySelectedToCalculation_Deposit = "CZK";
                     amountMenu();
                     break;
                 case 5:
+                    currencySelectedToCalculation_Deposit = "NOK";
                     amountMenu();
                     break;
                 case 6:
+                    currencySelectedToCalculation_Deposit = "DKK";
                     amountMenu();
                     break;
                 case 0:
@@ -260,12 +276,12 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Your account balance:");
-            System.out.println("150 000 	PLN");
-            System.out.println("	 50		USD");
-            System.out.println("  1 000 	EUR");
-            System.out.println("      0 	CZK");
-            System.out.println(" 24 000 	NOK");
-            System.out.println(" 50 000 	DKK");
+            System.out.println(balancePLN + " PLN");
+            System.out.println("	0	USD");
+            System.out.println("    0 	EUR");
+            System.out.println("    0 	CZK");
+            System.out.println("    0 	NOK");
+            System.out.println("    0 	DKK");
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -355,13 +371,13 @@ public class Menu {
 
     public static void amountMenu() {
 
-        int amount;
-
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Enter amount: ");
             amount = scan.nextInt();
         } while (amount < 0);
+
+        calculateAccountBalance(currencySelectedToCalculation_Deposit, amount);
 
         int scanner;
         do {
@@ -421,38 +437,13 @@ public class Menu {
             System.out.println("6. DKK");
     }
 
-    public static void calculateAccountBalance(char selectedCurrency, char typeOfTransaction, int amount) {
-        int pln = 0;
-        int usd = 0;
-        int eur = 0;
-        int czk = 0;
-        int nok = 0;
-        int dkk = 0;
+    public static void calculateAccountBalance(String currencySelectedToCalculation_Deposit, int am) {
 
-        if ("PLN".contains(String.valueOf(selectedCurrency)) && "deposit".contains(String.valueOf(typeOfTransaction))) {
-            pln = pln + amount;
+        if ("PLN".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balancePLN = balancePLN + am;
+        } else if ("USD".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balanceUSD = balanceUSD + amount;
         }
 
-
-        switch(selectedCurrency) {
-            case "PLN":
-                System.out.println("1. PLN");
-                break;
-            case "USD":
-                System.out.println("1. PLN");
-                break;
-            case "EUR":
-                System.out.println("1. PLN");
-                break;
-            case "CZK":
-                System.out.println("1. PLN");
-                break;
-            case "NOK":
-                System.out.println("1. PLN");
-                break;
-            case "DKK":
-                System.out.println("1. PLN");
-                break;
-        }
     }
 }
