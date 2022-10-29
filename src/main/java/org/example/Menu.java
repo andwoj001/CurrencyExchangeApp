@@ -5,7 +5,9 @@ package org.example;
 // Ctrl+/ -> zakomentowanie zaznaczonego obszaru
 
 //todo: login i haslo maja byc jeden po drugim a nie rownolegle <- done
-//todo: po zdeponowaniu kwoty jakiejs waluty balance powinien sie powiekszac, zrobmy balance w pliku tekstowym i edytujmy go za kazdym depozytem
+//todo: po zdeponowaniu kwoty jakiejs waluty balance powinien sie powiekszac <- done
+//todo: gdy wyplacam wieksza kwote niz jest na koncie, to balance powinien sie zrobic na 0 <- done
+
 
 import java.util.Scanner;
 
@@ -14,15 +16,20 @@ public class Menu {
     static char clientPassword = '0';
     static Scanner scan = new Scanner(System.in);
     static String currencySelectedToCalculation_Deposit;
+    static String currencySelectedToCalculation_Withdrawal;
 
     static int amount;
 
-    static int balancePLN = 0;
-    static int balanceUSD = 0;
-    static int balanceEUR = 0;
-    static int balanceCZK = 0;
-    static int balanceNOK = 0;
-    static int balanceDKK = 0;
+    static double balancePLN = 0;
+    static double balanceUSD = 0;
+    static double balanceEUR = 0;
+    static double balanceCZK = 0;
+    static double balanceNOK = 0;
+    static double balanceDKK = 0;
+
+    static String currencyToBeExchange;
+    static String currencyToBeExchangeFor;
+    static double amountOfCurrencyToBeExchange;
 
     public static void mainMenu() {
         int selection;
@@ -165,27 +172,27 @@ public class Menu {
             switch (selectedCurrencyToDeposit) {
                 case 1:
                     currencySelectedToCalculation_Deposit = "PLN";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 2:
                     currencySelectedToCalculation_Deposit = "USD";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 3:
                     currencySelectedToCalculation_Deposit = "EUR";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 4:
                     currencySelectedToCalculation_Deposit = "CZK";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 5:
                     currencySelectedToCalculation_Deposit = "NOK";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 6:
                     currencySelectedToCalculation_Deposit = "DKK";
-                    amountMenu();
+                    amountMenu(true, false);
                     break;
                 case 0:
                     afterLoginMenu();
@@ -245,22 +252,28 @@ public class Menu {
 
             switch (selectedCurrencyToWithdrawal) {
                 case 1:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "PLN";
+                    amountMenu(false, true);
                     break;
                 case 2:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "USD";
+                    amountMenu(false, true);
                     break;
                 case 3:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "EUR";
+                    amountMenu(false, true);
                     break;
                 case 4:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "CZK";
+                    amountMenu(false, true);
                     break;
                 case 5:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "NOK";
+                    amountMenu(false, true);
                     break;
                 case 6:
-                    amountMenu();
+                    currencySelectedToCalculation_Withdrawal = "DKK";
+                    amountMenu(false, true);
                     break;
                 case 0:
                     afterLoginMenu();
@@ -276,12 +289,12 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Your account balance:");
-            System.out.println(balancePLN + " PLN");
-            System.out.println("	0	USD");
-            System.out.println("    0 	EUR");
-            System.out.println("    0 	CZK");
-            System.out.println("    0 	NOK");
-            System.out.println("    0 	DKK");
+            System.out.println("PLN  " + balancePLN);
+            System.out.println("USD  " + balanceUSD);
+            System.out.println("EUR  " + balanceEUR);
+            System.out.println("CZK  " + balanceCZK);
+            System.out.println("NOK  " + balanceNOK);
+            System.out.println("DKK  " + balanceDKK);
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -306,21 +319,27 @@ public class Menu {
 
             switch (selectedCurrencyToBeExchange) {
                 case 1:
+                    Menu.currencyToBeExchange = "PLN";
                     amountToBeExchangeMenu();
                     break;
                 case 2:
+                    Menu.currencyToBeExchange = "USD";
                     amountToBeExchangeMenu();
                     break;
                 case 3:
+                    Menu.currencyToBeExchange = "EUR";
                     amountToBeExchangeMenu();
                     break;
                 case 4:
+                    Menu.currencyToBeExchange = "CZK";
                     amountToBeExchangeMenu();
                     break;
                 case 5:
+                    Menu.currencyToBeExchange = "NOK";
                     amountToBeExchangeMenu();
                     break;
                 case 6:
+                    Menu.currencyToBeExchange = "DKK";
                     amountToBeExchangeMenu();
                     break;
                 case 0:
@@ -345,21 +364,33 @@ public class Menu {
             switch (selectedCurrencyToBeExchangedFor) {
 
                 case 1:
+                    Menu.currencyToBeExchangeFor = "PLN";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 2:
+                    Menu.currencyToBeExchangeFor = "USD";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 3:
+                    Menu.currencyToBeExchangeFor = "EUR";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 4:
+                    Menu.currencyToBeExchangeFor = "CZK";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 5:
+                    Menu.currencyToBeExchangeFor = "NOK";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 6:
+                    Menu.currencyToBeExchangeFor = "DKK";
+                    currencyExchangeCalculation(currencyToBeExchange, currencyToBeExchangeFor, amountOfCurrencyToBeExchange);
                     theCurrencyHasBeenExchangeMenu();
                     break;
                 case 0:
@@ -369,7 +400,7 @@ public class Menu {
         } while (selectedCurrencyToBeExchangedFor != 0 && selectedCurrencyToBeExchangedFor != 1 && selectedCurrencyToBeExchangedFor != 2 && selectedCurrencyToBeExchangedFor != 3 && selectedCurrencyToBeExchangedFor != 4 && selectedCurrencyToBeExchangedFor != 5 && selectedCurrencyToBeExchangedFor != 6);
     }
 
-    public static void amountMenu() {
+    public static void amountMenu(boolean isDeposit, boolean isWithdrawal) {
 
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -377,7 +408,11 @@ public class Menu {
             amount = scan.nextInt();
         } while (amount < 0);
 
-        calculateAccountBalance(currencySelectedToCalculation_Deposit, amount);
+        if (isDeposit == true) {
+            calculateAccountBalance_Deposit(currencySelectedToCalculation_Deposit, amount);
+        } else if (isWithdrawal == true) {
+            calculateAccountBalance_Withdrawal(currencySelectedToCalculation_Withdrawal, amount);
+        }
 
         int scanner;
         do {
@@ -400,6 +435,9 @@ public class Menu {
 
             amount = scan.nextInt();
         } while (amount < 0);
+
+        amountOfCurrencyToBeExchange = amount;
+
         currencyToBeExchangedForMenu();
     }
 
@@ -437,13 +475,173 @@ public class Menu {
             System.out.println("6. DKK");
     }
 
-    public static void calculateAccountBalance(String currencySelectedToCalculation_Deposit, int am) {
+    public static void calculateAccountBalance_Deposit(String currencySelectedToCalculation_Deposit, int amount) {
 
         if ("PLN".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
-            balancePLN = balancePLN + am;
+            balancePLN = balancePLN + amount;
         } else if ("USD".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
             balanceUSD = balanceUSD + amount;
+        }   else if ("EUR".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balanceEUR = balanceEUR + amount;
+        }   else if ("CZK".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balanceCZK = balanceCZK + amount;
+        }   else if ("NOK".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balanceNOK = balanceNOK + amount;
+        }   else if ("DKK".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
+            balanceDKK = balanceDKK + amount;
         }
 
+    }
+
+    public static void calculateAccountBalance_Withdrawal(String currencySelectedToCalculation_Withdrawal, double amount) {
+
+        if ("PLN".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balancePLN = balancePLN - amount;
+            if (balancePLN < 0) {
+                balancePLN = 0;
+            }
+        } else if ("USD".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balanceUSD = balanceUSD - amount;
+            if (balanceUSD < 0) {
+                balanceUSD = 0;
+            }
+        }   else if ("EUR".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balanceEUR = balanceEUR - amount;
+            if (balanceEUR < 0) {
+                balanceEUR = 0;
+            }
+        }   else if ("CZK".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balanceCZK = balanceCZK - amount;
+            if (balanceCZK < 0) {
+                balanceCZK = 0;
+            }
+        }   else if ("NOK".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balanceNOK = balanceNOK - amount;
+            if (balanceNOK < 0) {
+                balanceNOK = 0;
+            }
+        }   else if ("DKK".contains(String.valueOf(currencySelectedToCalculation_Withdrawal))) {
+            balanceDKK = balanceDKK - amount;
+            if (balanceDKK < 0) {
+                balanceDKK = 0;
+            }
+        }
+
+    }
+
+    public static void currencyExchangeCalculation(String currencyToBeExchange, String currencyToBeExchangeFor, double amountOfCurrencyToBeExchange) {
+        double PLNtoUSD = 0.21; double PLNtoEUR = 0.21;  double PLNtoCZK = 5.20; double PLNtoNOK = 2.17; double PLNtoDKK = 1.58;
+        double USDtoPLN = 4.73; double USDtoEUR = 1.00;  double USDtoCZK = 24.59; double USDtoNOK = 10.31; double USDtoDKK = 7.47;
+        double EURtoPLN = 4.72; double EURtoUSD = 1.00;  double EURtoCZK = 24.51; double EURtoNOK = 10.26; double EURtoDKK = 7.44;
+        double CZKtoPLN = 0.19; double CZKtoUSD = 0.041;  double CZKtoEUR = 0.041; double CZKtoNOK = 0.42; double CZKtoDKK = 0.30;
+        double NOKtoPLN = 0.45; double NOKtoUSD = 0.096;  double NOKtoEUR = 0.097; double NOKtoCZK = 2.36; double NOKtoDKK = 0.72;
+        double DKKtoPLN = 0.63; double DKKtoUSD = 0.13;  double DKKtoEUR = 0.13; double DKKtoCZK = 3.29; double DKKtoNOK = 1.38;
+
+        if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * PLNtoUSD);
+        } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * PLNtoEUR);
+        } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * PLNtoCZK);
+        } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * PLNtoNOK);
+        } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * PLNtoDKK);
+        }
+
+
+        else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * USDtoPLN);
+        } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * USDtoEUR);
+        } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * USDtoCZK);
+        } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * USDtoNOK);
+        } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * USDtoDKK);
+        }
+
+
+        else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * EURtoPLN);
+        } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * EURtoUSD);
+        } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * EURtoCZK);
+        } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * EURtoNOK);
+        } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * EURtoDKK);
+        }
+
+
+        else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * CZKtoPLN);
+        } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * CZKtoUSD);
+        } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * CZKtoEUR);
+        } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * CZKtoNOK);
+        } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * CZKtoDKK);
+        }
+
+
+        else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * NOKtoPLN);
+        } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * NOKtoUSD);
+        } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * NOKtoEUR);
+        } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * NOKtoCZK);
+        } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * NOKtoDKK);
+        }
+
+
+        else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * DKKtoPLN);
+        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * DKKtoUSD);
+        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * DKKtoEUR);
+        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * DKKtoCZK);
+        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * DKKtoNOK);
+        }
     }
 }
