@@ -7,18 +7,34 @@ package org.example;
 //todo: login i haslo maja byc jeden po drugim a nie rownolegle <- done
 //todo: po zdeponowaniu kwoty jakiejs waluty balance powinien sie powiekszac <- done
 //todo: gdy wyplacam wieksza kwote niz jest na koncie, to balance powinien sie zrobic na 0 <- done
+//todo: przeliczanie walut i odpowiednie odejmowanie i dodawanie do kont <- done
+//todo: wyswietlanie historii 3 ostatnich transakcji dla danej waluty w formacie np.:
+// "DD-MM-RRRR +200 WALUTA: acc. balance after operation: XXXX.XX WALUTA"
+
+// dopisac warunki if not null to get dla kazdego, else println "no transacion yet"
+//            System.out.println(stack.get(1));
+//            System.out.println(stack.get(2));
 
 
+import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
+import java.util.Stack;
+
 
 public class Menu {
+    public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
+
+    static Stack<String> stack = new Stack<String>();
+
     static int clientNumber = 0;
     static char clientPassword = '0';
     static Scanner scan = new Scanner(System.in);
     static String currencySelectedToCalculation_Deposit;
     static String currencySelectedToCalculation_Withdrawal;
 
-    static int amount;
+    static double amount;
 
     static double balancePLN = 0;
     static double balanceUSD = 0;
@@ -30,6 +46,12 @@ public class Menu {
     static String currencyToBeExchange;
     static String currencyToBeExchangeFor;
     static double amountOfCurrencyToBeExchange;
+
+    static String currencyToCheckItsBalanceHistory;
+    static boolean isDepositBalanceHistory;
+    boolean isWithdrawalBalanceHistory;
+    boolean isAddedAfterCurrencyExchangeBalanceHistory;
+    boolean isDeductedAfterCurrencyExchangeBalanceHistory;
 
     public static void mainMenu() {
         int selection;
@@ -214,21 +236,27 @@ public class Menu {
 
             switch (selection) {
                 case 1:
+                    currencyToCheckItsBalanceHistory = "PLN";
                     balanceHistoryMenu();
                     break;
                 case 2:
+                    currencyToCheckItsBalanceHistory = "USD";
                     balanceHistoryMenu();
                     break;
                 case 3:
+                    currencyToCheckItsBalanceHistory = "EUR";
                     balanceHistoryMenu();
                     break;
                 case 4:
+                    currencyToCheckItsBalanceHistory = "CZK";
                     balanceHistoryMenu();
                     break;
                 case 5:
+                    currencyToCheckItsBalanceHistory = "NOK";
                     balanceHistoryMenu();
                     break;
                 case 6:
+                    currencyToCheckItsBalanceHistory = "DKK";
                     balanceHistoryMenu();
                     break;
                 case 0:
@@ -286,15 +314,17 @@ public class Menu {
 
         int selection;
 
+        DecimalFormat df = new DecimalFormat("####0.00");
+
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Your account balance:");
-            System.out.println("PLN  " + balancePLN);
-            System.out.println("USD  " + balanceUSD);
-            System.out.println("EUR  " + balanceEUR);
-            System.out.println("CZK  " + balanceCZK);
-            System.out.println("NOK  " + balanceNOK);
-            System.out.println("DKK  " + balanceDKK);
+            System.out.println("PLN  " + df.format(balancePLN));
+            System.out.println("USD  " + df.format(balanceUSD));
+            System.out.println("EUR  " + df.format(balanceEUR));
+            System.out.println("CZK  " + df.format(balanceCZK));
+            System.out.println("NOK  " + df.format(balanceNOK));
+            System.out.println("DKK  " + df.format(balanceDKK));
             System.out.println("0. Cancel to previous menu");
 
             selection = scan.nextInt();
@@ -405,13 +435,15 @@ public class Menu {
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("Enter amount: ");
-            amount = scan.nextInt();
+            amount = scan.nextDouble();
         } while (amount < 0);
 
         if (isDeposit == true) {
             calculateAccountBalance_Deposit(currencySelectedToCalculation_Deposit, amount);
+            balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false);
         } else if (isWithdrawal == true) {
             calculateAccountBalance_Withdrawal(currencySelectedToCalculation_Withdrawal, amount);
+            balanceHistoryCalculation(currencySelectedToCalculation_Withdrawal, false, true, false, false);
         }
 
         int scanner;
@@ -454,12 +486,19 @@ public class Menu {
 
     private static void balanceHistoryMenu() {
         int scanner;
+
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("History of transactions (last 3):");
-            System.out.println("18-10-2022 +200 PLN; balance after operation: 10 500 PLN");
-            System.out.println("16-10-2022 +100 PLN; balance after operation: 10 300 PLN");
-            System.out.println("10-10-2022 +100 PLN; balance after operation: 10 200 PLN");
+            if (stack.size() > 0) {
+                System.out.println(stack.get(stack.size() - 1));
+                if (stack.size() > 1) {
+                    System.out.println(stack.get(stack.size() - 2));
+                    if (stack.size() > 2) {
+                        System.out.println(stack.get(stack.size() - 3));
+                    }
+                }
+            }
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
         } while (scanner != 0);
@@ -475,7 +514,7 @@ public class Menu {
             System.out.println("6. DKK");
     }
 
-    public static void calculateAccountBalance_Deposit(String currencySelectedToCalculation_Deposit, int amount) {
+    public static void calculateAccountBalance_Deposit(String currencySelectedToCalculation_Deposit, double amount) {
 
         if ("PLN".contains(String.valueOf(currencySelectedToCalculation_Deposit))) {
             balancePLN = balancePLN + amount;
@@ -644,4 +683,37 @@ public class Menu {
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * DKKtoNOK);
         }
     }
+
+    public static void balanceHistoryCalculation(String currencyToCheckItsBalanceHistory, boolean isDepositBalanceHistory, boolean isWithdrawalBalanceHistory, boolean isAddedAfterCurrencyExchangeBalanceHistory, boolean isDeductedAfterCurrencyExchangeBalanceHistory) {
+        String sign;
+        String amountString = Double.toString(amount);
+        String deposit = "deposit";
+        String withdrawal = "withdrawal";
+        String addedAfterTransfer = "added from transfer";
+        String deductedAfterTransfer = "deducted after transfer";
+
+        if ("PLN".contains(String.valueOf(currencyToCheckItsBalanceHistory))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + deductedAfterTransfer);
+            }
+        }
+
+    }
+
+    public static String now() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT_NOW);
+        return sdf.format(cal.getTime());
+    }
+
 }
