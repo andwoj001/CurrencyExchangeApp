@@ -9,7 +9,7 @@ package org.example;
 //todo: gdy wyplacam wieksza kwote niz jest na koncie, to balance powinien sie zrobic na 0 <- done
 //todo: przeliczanie walut i odpowiednie odejmowanie i dodawanie do kont <- done
 //todo: wyswietlanie historii 3 ostatnich transakcji dla danej waluty w formacie np.:
-// "DD-MM-RRRR +200 WALUTA: acc. balance after operation: XXXX.XX WALUTA"
+// "DD-MM-RRRR +200 WALUTA: acc. balance after operation: XXXX.XX WALUTA
 
 // dopisac warunki if not null to get dla kazdego, else println "no transacion yet"
 //            System.out.println(stack.get(1));
@@ -26,7 +26,13 @@ import java.util.Stack;
 public class Menu {
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
-    static Stack<String> stack = new Stack<String>();
+    static Stack<String> stackHistoryPLN = new Stack<String>();
+    static Stack<String> stackHistoryUSD = new Stack<String>();
+    static Stack<String> stackHistoryEUR = new Stack<String>();
+    static Stack<String> stackHistoryCZK = new Stack<String>();
+    static Stack<String> stackHistoryDKK = new Stack<String>();
+    static Stack<String> stackHistoryNOK = new Stack<String>();
+
 
     static int clientNumber = 0;
     static char clientPassword = '0';
@@ -237,27 +243,27 @@ public class Menu {
             switch (selection) {
                 case 1:
                     currencyToCheckItsBalanceHistory = "PLN";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("PLN");
                     break;
                 case 2:
                     currencyToCheckItsBalanceHistory = "USD";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("USD");
                     break;
                 case 3:
                     currencyToCheckItsBalanceHistory = "EUR";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("EUR");
                     break;
                 case 4:
                     currencyToCheckItsBalanceHistory = "CZK";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("CZK");
                     break;
                 case 5:
                     currencyToCheckItsBalanceHistory = "NOK";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("NOK");
                     break;
                 case 6:
                     currencyToCheckItsBalanceHistory = "DKK";
-                    balanceHistoryMenu();
+                    balanceHistoryMenu("DKK");
                     break;
                 case 0:
                     afterLoginMenu();
@@ -440,10 +446,10 @@ public class Menu {
 
         if (isDeposit == true) {
             calculateAccountBalance_Deposit(currencySelectedToCalculation_Deposit, amount);
-            balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false);
+            balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false, amount);
         } else if (isWithdrawal == true) {
             calculateAccountBalance_Withdrawal(currencySelectedToCalculation_Withdrawal, amount);
-            balanceHistoryCalculation(currencySelectedToCalculation_Withdrawal, false, true, false, false);
+            balanceHistoryCalculation(currencySelectedToCalculation_Withdrawal, false, true, false, false, amount);
         }
 
         int scanner;
@@ -484,18 +490,70 @@ public class Menu {
         afterLoginMenu();
     }
 
-    private static void balanceHistoryMenu() {
+    private static void balanceHistoryMenu(String currency) {
         int scanner;
 
         do {
             System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
             System.out.println("History of transactions (last 3):");
-            if (stack.size() > 0) {
-                System.out.println(stack.get(stack.size() - 1));
-                if (stack.size() > 1) {
-                    System.out.println(stack.get(stack.size() - 2));
-                    if (stack.size() > 2) {
-                        System.out.println(stack.get(stack.size() - 3));
+            if ("PLN".contains(String.valueOf(currency))) {
+                if (stackHistoryPLN.size() > 0) {
+                    System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 1));
+                    if (stackHistoryPLN.size() > 1) {
+                        System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 2));
+                        if (stackHistoryPLN.size() > 2) {
+                            System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 3));
+                        }
+                    }
+                }
+            } else if ("USD".contains(String.valueOf(currency))) {
+                if (stackHistoryUSD.size() > 0) {
+                    System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 1));
+                    if (stackHistoryUSD.size() > 1) {
+                        System.out.println(stackHistoryPLN.get(stackHistoryUSD.size() - 2));
+                        if (stackHistoryUSD.size() > 2) {
+                            System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 3));
+                        }
+                    }
+                }
+            } else if ("EUR".contains(String.valueOf(currency))) {
+                if (stackHistoryEUR.size() > 0) {
+                    System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 1));
+                    if (stackHistoryEUR.size() > 1) {
+                        System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 2));
+                        if (stackHistoryEUR.size() > 2) {
+                            System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 3));
+                        }
+                    }
+                }
+            } else if ("CZK".contains(String.valueOf(currency))) {
+                if (stackHistoryCZK.size() > 0) {
+                    System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 1));
+                    if (stackHistoryCZK.size() > 1) {
+                        System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 2));
+                        if (stackHistoryCZK.size() > 2) {
+                            System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 3));
+                        }
+                    }
+                }
+            } else if ("DKK".contains(String.valueOf(currency))) {
+                if (stackHistoryDKK.size() > 0) {
+                    System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 1));
+                    if (stackHistoryDKK.size() > 1) {
+                        System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 2));
+                        if (stackHistoryDKK.size() > 2) {
+                            System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 3));
+                        }
+                    }
+                }
+            } else if ("NOK".contains(String.valueOf(currency))) {
+                if (stackHistoryNOK.size() > 0) {
+                    System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 1));
+                    if (stackHistoryNOK.size() > 1) {
+                        System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 2));
+                        if (stackHistoryNOK.size() > 2) {
+                            System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 3));
+                        }
                     }
                 }
             }
@@ -578,113 +636,168 @@ public class Menu {
 
         if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * PLNtoUSD);
+            balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoUSD);
         } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * PLNtoEUR);
+            balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoEUR);
         } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * PLNtoCZK);
+            balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoCZK);
         } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * PLNtoNOK);
+            balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoNOK);
         } else if ("PLN".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * PLNtoDKK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoDKK);
         }
-
 
         else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
             balancePLN = balancePLN + (amountOfCurrencyToBeExchange * USDtoPLN);
+            balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * USDtoPLN);
         } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * USDtoEUR);
+            balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * USDtoEUR);
         } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * USDtoCZK);
+            balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoCZK);
         } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * USDtoNOK);
+            balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoNOK);
         } else if ("USD".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * USDtoDKK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoDKK);
         }
-
 
         else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
             balancePLN = balancePLN + (amountOfCurrencyToBeExchange * EURtoPLN);
+            balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * EURtoPLN);
         } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * EURtoUSD);
+            balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * EURtoUSD);
         } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * EURtoCZK);
+            balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoCZK);
         } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * EURtoNOK);
+            balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoNOK);
         } else if ("EUR".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * EURtoDKK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoDKK);
         }
-
 
         else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
             balancePLN = balancePLN + (amountOfCurrencyToBeExchange * CZKtoPLN);
+            balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoPLN);
         } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * CZKtoUSD);
+            balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoUSD);
         } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * CZKtoEUR);
+            balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoEUR);
         } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * CZKtoNOK);
+            balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoNOK);
         } else if ("CZK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * CZKtoDKK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoDKK);
         }
-
 
         else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
             balancePLN = balancePLN + (amountOfCurrencyToBeExchange * NOKtoPLN);
+            balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoPLN);
         } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * NOKtoUSD);
+            balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoUSD);
         } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * NOKtoEUR);
+            balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoEUR);
         } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * NOKtoCZK);
+            balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoCZK);
         } else if ("NOK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * NOKtoDKK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoDKK);
         }
-
 
         else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "PLN".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
             balancePLN = balancePLN + (amountOfCurrencyToBeExchange * DKKtoPLN);
+            balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoPLN);
         } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "USD".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * DKKtoUSD);
+            balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoUSD);
         } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "EUR".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * DKKtoEUR);
+            balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoEUR);
         } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "CZK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * DKKtoCZK);
-        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "DKK".contains(String.valueOf(currencyToBeExchangeFor))) {
+            balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoCZK);
+        } else if ("DKK".contains(String.valueOf(currencyToBeExchange)) && "NOK".contains(String.valueOf(currencyToBeExchangeFor))) {
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
             balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * DKKtoNOK);
+            balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoNOK);
         }
     }
 
-    public static void balanceHistoryCalculation(String currencyToCheckItsBalanceHistory, boolean isDepositBalanceHistory, boolean isWithdrawalBalanceHistory, boolean isAddedAfterCurrencyExchangeBalanceHistory, boolean isDeductedAfterCurrencyExchangeBalanceHistory) {
+    public static void balanceHistoryCalculation(String currency, boolean isDepositBalanceHistory, boolean isWithdrawalBalanceHistory, boolean isAddedAfterCurrencyExchangeBalanceHistory, boolean isDeductedAfterCurrencyExchangeBalanceHistory, double amount) {
         String sign;
         String amountString = Double.toString(amount);
         String deposit = "deposit";
@@ -692,19 +805,89 @@ public class Menu {
         String addedAfterTransfer = "added from transfer";
         String deductedAfterTransfer = "deducted after transfer";
 
-        if ("PLN".contains(String.valueOf(currencyToCheckItsBalanceHistory))) {
+        if ("PLN".contains(String.valueOf(currency))) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + deposit);
+                stackHistoryPLN.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + withdrawal);
+                stackHistoryPLN.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + addedAfterTransfer);
+                stackHistoryPLN.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stack.push(now() + sign + amountString + currencyToCheckItsBalanceHistory + deductedAfterTransfer);
+                stackHistoryPLN.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
+            }
+        } else if ("USD".contains(String.valueOf(currency))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stackHistoryUSD.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stackHistoryUSD.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stackHistoryUSD.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stackHistoryUSD.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
+            }
+        } else if ("EUR".contains(String.valueOf(currency))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stackHistoryEUR.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stackHistoryEUR.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stackHistoryEUR.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stackHistoryEUR.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
+            }
+        } else if ("CZK".contains(String.valueOf(currency))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stackHistoryCZK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stackHistoryCZK.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stackHistoryCZK.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stackHistoryCZK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
+            }
+        } else if ("NOK".contains(String.valueOf(currency))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stackHistoryNOK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stackHistoryNOK.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stackHistoryNOK.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stackHistoryNOK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
+            }
+        } else if ("DKK".contains(String.valueOf(currency))) {
+            if (isDepositBalanceHistory) {
+                sign = "+";
+                stackHistoryDKK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deposit);
+            } else if (isWithdrawalBalanceHistory) {
+                sign = "-";
+                stackHistoryDKK.push(now() + " " + sign + " " + amountString + " " + currency + " " + withdrawal);
+            } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
+                sign = "+";
+                stackHistoryDKK.push(now() + " " + sign + " " + amountString + " " + currency + " " + addedAfterTransfer);
+            } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
+                sign = "-";
+                stackHistoryDKK.push(now() + " " + sign + " " + amountString + " " + currency + " " + deductedAfterTransfer);
             }
         }
 
