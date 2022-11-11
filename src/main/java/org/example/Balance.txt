@@ -1,0 +1,6 @@
+0 	PLN
+0	USD
+0 	EUR
+0 	CZK
+0 	NOK
+0   DKK
