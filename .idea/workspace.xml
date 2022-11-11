@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221102_Client number, added correct try catch validation">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
+    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221111_client password validation, try catch, replace char with String for password variable">
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-10-06_21_20_[Changes]/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2022-10-06_21_20_[Changes]1/shelved.patch" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Balance.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +228,21 @@
       <option name="project" value="LOCAL" />
       <updated>1667416538590</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="221111_client password validation, try catch, replace char with String for password variable">
+      <created>1668193767228</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1668193767228</updated>
+    </task>
+    <task id="LOCAL-00023" summary="221111_client password validation, try catch, replace char with String for password variable">
+      <created>1668194431893</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1668194431894</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -260,7 +275,8 @@
     <MESSAGE value="221030_Added implementation of history balance in PLN currency" />
     <MESSAGE value="221031_Added implementation of history balance in PLN currency" />
     <MESSAGE value="221102_Client number, added correct try catch validation" />
-    <option name="LAST_COMMIT_MESSAGE" value="221102_Client number, added correct try catch validation" />
+    <MESSAGE value="221111_client password validation, try catch, replace char with String for password variable" />
+    <option name="LAST_COMMIT_MESSAGE" value="221111_client password validation, try catch, replace char with String for password variable" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
