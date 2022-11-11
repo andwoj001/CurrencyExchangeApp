@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221031_Added implementation of history balance in PLN currency">
+    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221102_Client number, added correct try catch validation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
     </list>
@@ -40,17 +40,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
@@ -220,7 +220,14 @@
       <option name="project" value="LOCAL" />
       <updated>1667241768940</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="221102_Client number, added correct try catch validation">
+      <created>1667416538590</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1667416538590</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -252,7 +259,8 @@
     <MESSAGE value="221029_Currency exchange calculation added" />
     <MESSAGE value="221030_Added implementation of history balance in PLN currency" />
     <MESSAGE value="221031_Added implementation of history balance in PLN currency" />
-    <option name="LAST_COMMIT_MESSAGE" value="221031_Added implementation of history balance in PLN currency" />
+    <MESSAGE value="221102_Client number, added correct try catch validation" />
+    <option name="LAST_COMMIT_MESSAGE" value="221102_Client number, added correct try catch validation" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -263,6 +271,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CurrencyExchangeApplication$Main.ic" NAME="Main Coverage Results" MODIFIED="1666032184311" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

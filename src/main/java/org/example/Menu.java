@@ -4,25 +4,9 @@ package org.example;
 // Shift+F10 -> Run metody Main
 // Ctrl+/ -> zakomentowanie zaznaczonego obszaru
 
-//todo: login i haslo maja byc jeden po drugim a nie rownolegle <- done
-//todo: po zdeponowaniu kwoty jakiejs waluty balance powinien sie powiekszac <- done
-//todo: gdy wyplacam wieksza kwote niz jest na koncie, to balance powinien sie zrobic na 0 <- done
-//todo: przeliczanie walut i odpowiednie odejmowanie i dodawanie do kont <- done
-//todo: wyswietlanie historii 3 ostatnich transakcji dla danej waluty w formacie np.:
-// "DD-MM-RRRR +200 WALUTA: acc. balance after operation: XXXX.XX WALUTA
-
-// dopisac warunki if not null to get dla kazdego, else println "no transacion yet"
-//            System.out.println(stack.get(1));
-//            System.out.println(stack.get(2));
-
-
 import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.util.*;
 import java.text.SimpleDateFormat;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-import java.util.Stack;
-
 
 public class Menu {
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
@@ -34,9 +18,8 @@ public class Menu {
     static Stack<String> stackHistoryDKK = new Stack<String>();
     static Stack<String> stackHistoryNOK = new Stack<String>();
 
-
     static int clientNumber = 0;
-    static char clientPassword = '0';
+    static String clientPassword = "0";
     static Scanner scan = new Scanner(System.in);
     static String currencySelectedToCalculation_Deposit;
     static String currencySelectedToCalculation_Withdrawal;
@@ -107,12 +90,6 @@ public class Menu {
                     } while (wenttocatch == true);
                     clientPasswordLoginMenu();
                     break;
-//                case 2:
-//                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-//                    System.out.println("Enter your password: ");
-//                    clientPassword = scan.next().charAt(0);
-//                    loginMenu();
-//                    break;
                 case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     mainMenu();
@@ -133,11 +110,24 @@ public class Menu {
 
             switch (selection) {
                 case 1:
+                    boolean wenttocatch;
+                    do {
+                        try {
+                            wenttocatch = false;
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("Enter your client password: ");
-                    clientPassword = scan.next().charAt(0);
-                    if (clientNumber == 123456 && "ABC123".contains(String.valueOf(clientPassword))) {
-                        afterLoginMenu();
+                    clientPassword = scan.next();
+                        } catch (InputMismatchException e) {
+                            wenttocatch = true;
+                            scan.nextLine();
+                        }
+                    } while (wenttocatch == true);
+
+
+                    if (clientNumber == 123456 && "ABC123".equals(clientPassword)) {
+                        clientPanelMenu();
+                    } else {
+                        clientPasswordLoginMenu();
                     }
                     break;
                 case 0:
@@ -148,7 +138,7 @@ public class Menu {
         } while (selection != 0 && selection != 1);
     }
 
-    public static void afterLoginMenu() {
+    public static void clientPanelMenu() {
 
         int selection;
 
@@ -182,7 +172,7 @@ public class Menu {
                     break;
                 case 0:
                     clientNumber = 0;
-                    clientPassword = '0';
+                    clientPassword = "0";
                     mainMenu();
                     break;
             }
@@ -227,7 +217,7 @@ public class Menu {
                     amountMenu(true, false);
                     break;
                 case 0:
-                    afterLoginMenu();
+                    clientPanelMenu();
                     break;
             }
         } while (selectedCurrencyToDeposit != 0 && selectedCurrencyToDeposit != 1 && selectedCurrencyToDeposit != 2 && selectedCurrencyToDeposit != 3 && selectedCurrencyToDeposit != 4 && selectedCurrencyToDeposit != 5 && selectedCurrencyToDeposit != 6);
@@ -270,7 +260,7 @@ public class Menu {
                     balanceHistoryMenu("DKK");
                     break;
                 case 0:
-                    afterLoginMenu();
+                    clientPanelMenu();
                     break;
             }
         } while (selection != 0 && selection != 1 && selection != 2 && selection != 3 && selection != 4 && selection != 5 && selection != 6);
@@ -314,7 +304,7 @@ public class Menu {
                     amountMenu(false, true);
                     break;
                 case 0:
-                    afterLoginMenu();
+                    clientPanelMenu();
                     break;
             }
         } while (selectedCurrencyToWithdrawal != 0 && selectedCurrencyToWithdrawal != 1 && selectedCurrencyToWithdrawal != 2 && selectedCurrencyToWithdrawal != 3 && selectedCurrencyToWithdrawal != 4 && selectedCurrencyToWithdrawal != 5 && selectedCurrencyToWithdrawal != 6);
@@ -340,7 +330,7 @@ public class Menu {
             selection = scan.nextInt();
 
             if (selection == 0) {
-                afterLoginMenu();
+                clientPanelMenu();
             }
         } while (selection != 0);
     }
@@ -383,7 +373,7 @@ public class Menu {
                     amountToBeExchangeMenu();
                     break;
                 case 0:
-                    afterLoginMenu();
+                    clientPanelMenu();
                     break;
             }
         } while (selectedCurrencyToBeExchange != 0 && selectedCurrencyToBeExchange != 1 && selectedCurrencyToBeExchange != 2 && selectedCurrencyToBeExchange != 3 && selectedCurrencyToBeExchange != 4 && selectedCurrencyToBeExchange != 5 && selectedCurrencyToBeExchange != 6);
@@ -464,7 +454,7 @@ public class Menu {
             scanner = scan.nextInt();
         } while (scanner != 0);
 
-        afterLoginMenu();
+        clientPanelMenu();
     }
 
     public static void amountToBeExchangeMenu() {
@@ -491,7 +481,7 @@ public class Menu {
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
         } while (scanner != 0);
-        afterLoginMenu();
+        clientPanelMenu();
     }
 
     private static void balanceHistoryMenu(String currency) {
@@ -564,7 +554,7 @@ public class Menu {
             System.out.println("0. Exit to client panel");
             scanner = scan.nextInt();
         } while (scanner != 0);
-        afterLoginMenu();
+        clientPanelMenu();
     }
 
     public static void printCurrencySelectionMenu() {
@@ -648,7 +638,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -662,7 +652,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -676,7 +666,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -690,7 +680,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -704,7 +694,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balancePLN = balancePLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -720,7 +710,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -734,7 +724,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -748,7 +738,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -762,7 +752,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -776,7 +766,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -792,7 +782,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -806,7 +796,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -820,7 +810,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -834,7 +824,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -848,7 +838,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -864,7 +854,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -878,7 +868,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -892,7 +882,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -906,7 +896,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -920,7 +910,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -936,7 +926,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -950,7 +940,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -964,7 +954,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -978,7 +968,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -992,7 +982,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -1008,7 +998,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -1022,7 +1012,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -1036,7 +1026,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -1050,7 +1040,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
@@ -1064,7 +1054,7 @@ public class Menu {
                     System.out.println("0. Exit to client panel");
                     scanner = scan.nextInt();
                 } while (scanner != 0);
-                afterLoginMenu();
+                clientPanelMenu();
             }
             balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
