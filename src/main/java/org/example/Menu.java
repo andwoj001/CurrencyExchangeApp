@@ -10,7 +10,17 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
+
 public class Menu {
+
+
+    static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
+    static User user2 = new User("Jan Nowak", 888999, "ABC999");
+    // mogę działać na polach dopiero gdy jestem w metodzie ;)
+
+
+
+
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
     static Stack<String> stackHistoryPLN = new Stack<String>();
