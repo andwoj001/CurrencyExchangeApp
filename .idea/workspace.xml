@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221115_adding user class">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
-    </list>
+    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="221117_tutorial for creating excel worksheet" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -270,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668549069540</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="221117_tutorial for creating excel worksheet">
+      <created>1668714542771</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1668714542771</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -305,7 +308,8 @@
     <MESSAGE value="221102_Client number, added correct try catch validation" />
     <MESSAGE value="221111_client password validation, try catch, replace char with String for password variable" />
     <MESSAGE value="221115_adding user class" />
-    <option name="LAST_COMMIT_MESSAGE" value="221115_adding user class" />
+    <MESSAGE value="221117_tutorial for creating excel worksheet" />
+    <option name="LAST_COMMIT_MESSAGE" value="221117_tutorial for creating excel worksheet" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
