@@ -4,8 +4,18 @@ package org.example;
 // Shift+F10 -> Run metody Main
 // Ctrl+/ -> zakomentowanie zaznaczonego obszaru
 
-//todo:
+//todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -52,6 +62,23 @@ public class Menu {
     static String currencyToCheckItsBalanceHistory;
 
     public static void mainMenu() {
+
+
+        /*try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("balance.txt"));
+            writer.write("aaaa bbbbbb");
+            writer.write("\nsecond row");
+            writer.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }*/
+
+        //XSSFWorkbook workbook = new XSSFWorkbook();
+
+        ExcelTest tt = new ExcelTest();
+        tt.test();
+
+
         int selection = 001;
         do {
             boolean isCatch;
