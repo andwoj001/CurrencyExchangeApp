@@ -6,16 +6,7 @@ package org.example;
 
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -27,8 +18,6 @@ public class Menu {
     static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
     static User user2 = new User("Jan Nowak", 888999, "ABC999");
     // mogę działać na polach dopiero gdy jestem w metodzie ;)
-
-
 
 
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
@@ -75,7 +64,7 @@ public class Menu {
 
         //XSSFWorkbook workbook = new XSSFWorkbook();
 
-        ExcelTest tt = new ExcelTest();
+        Excel tt = new Excel();
         tt.test();
 
 

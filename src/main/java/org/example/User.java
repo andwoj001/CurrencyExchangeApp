@@ -4,29 +4,17 @@ public class User {
 
     public static String userName, userPassword;
     public static int userNumber;
+    public static double PLN;
+    public static double USD;
+    public static double EUR;
+    public static double CZK;
+    public static double NOK;
+    public static double DKK;
+
+
 
     public String getUserName() {
         return userName;
-    }
-
-    public static void setUserName(String userName) {
-        User.userName = userName;
-    }
-
-    public static String getUserPassword() {
-        return userPassword;
-    }
-
-    public static void setUserPassword(String userPassword) {
-        User.userPassword = userPassword;
-    }
-
-    public static int getUserNumber() {
-        return userNumber;
-    }
-
-    public static void setUserNumber(int userNumber) {
-        User.userNumber = userNumber;
     }
 
     public User(String userName, int userNumber, String userPassword) {
@@ -35,5 +23,17 @@ public class User {
         this.userPassword = userPassword;
     }
 
+    public void addToUserAccountBalance (double amount) {
+        PLN = PLN + amount;
+        USD = USD + amount;
+        EUR = EUR + amount;
+        CZK = CZK + amount;
+        NOK = NOK + amount;
+        DKK = DKK + amount;
+    }
+
+    public void removeFromUserAccountBalance (double amount) {
+
+    }
 
 }
