@@ -15,8 +15,7 @@ import java.text.SimpleDateFormat;
 public class Menu {
 
 
-    static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
-    static User user2 = new User("Jan Nowak", 888999, "ABC999");
+
     // mogę działać na polach dopiero gdy jestem w metodzie ;)
 
 
@@ -44,29 +43,19 @@ public class Menu {
     static double balanceNOK = 0;
     static double balanceDKK = 0;
 
+    static String whoIsLogin;
+
     static String currencyToBeExchange;
     static String currencyToBeExchangeFor;
     static double amountOfCurrencyToBeExchange;
 
     static String currencyToCheckItsBalanceHistory;
 
+    static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
+
+
     public static void mainMenu() {
-
-
-        /*try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("balance.txt"));
-            writer.write("aaaa bbbbbb");
-            writer.write("\nsecond row");
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }*/
-
-        //XSSFWorkbook workbook = new XSSFWorkbook();
-
-        Excel tt = new Excel();
-        tt.test();
-
+        user1.creatingExcelFile();
 
         int selection = 001;
         do {
@@ -180,6 +169,7 @@ public class Menu {
 
 
                     if (clientNumber == 123456 && "ABC123".equals(clientPassword)) {
+                        whoIsLogin = "Andrzej Wojciechowski";
                         clientPanelMenu();
                     } else {
                         clientPasswordLoginMenu();
@@ -577,7 +567,7 @@ public class Menu {
         } while (amount < 0);
 
         if (isDeposit == true) {
-            calculateAccountBalance_Deposit(currencySelectedToCalculation_Deposit, amount);
+            user1.addToUserAccountBalance(amount, currencySelectedToCalculation_Deposit);
             balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false, amount);
         } else if (isWithdrawal == true) {
             calculateAccountBalance_Withdrawal(currencySelectedToCalculation_Withdrawal, amount);
