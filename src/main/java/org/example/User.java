@@ -12,63 +12,33 @@ public class User {
 
     public static String userName, userPassword;
     public static int userNumber;
-    public static double PLN;
+    public static double PLN = 0;
     public static double USD;
     public static double EUR;
     public static double CZK;
     public static double NOK;
     public static double DKK;
 
-    static Workbook workbook1 = new XSSFWorkbook();
-
-    static Sheet sheet1 = workbook1.createSheet("Andrzej Wojciechowski");
-    static Row row1 = sheet1.createRow(0);
-    static Row row2 = sheet1.createRow(1);
+    static Excel excel = new Excel();
 
     public User(String userName, int userNumber, String userPassword) {
         this.userName = userName;
         this.userNumber = userNumber;
         this.userPassword = userPassword;
-
-
     }
-
-    public static void creatingExcelFile() {
-
-
-        row1.createCell(0).setCellValue("Account balance ->");
-        row1.createCell(1).setCellValue("PLN");
-        row1.createCell(2).setCellValue("USD");
-        row1.createCell(3).setCellValue("EUR");
-        row1.createCell(4).setCellValue("CZK");
-        row1.createCell(5).setCellValue("NOK");
-        row1.createCell(6).setCellValue("DKK");
-
-        row2.createCell(1).setCellValue(PLN);
-        row2.createCell(2).setCellValue(USD);
-        row2.createCell(3).setCellValue(EUR);
-        row2.createCell(4).setCellValue(CZK);
-        row2.createCell(5).setCellValue(NOK);
-        row2.createCell(6).setCellValue(DKK);
-
-        try (FileOutputStream outputStream = new FileOutputStream("workbook1.xlsx")) {
-            workbook1.write(outputStream);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
-
 
     public static void addToUserAccountBalance(double amount, String currency) {
+
+
         switch (currency) {
 
             case "PLN":
-                PLN = PLN + amount;
-                row1.createCell(1).setCellValue(PLN);
+
+                if (!(excel.isWorkbookExist())) {
+                    excel.createWorkbook();
+                }
+                PLN = Excel.getPLNFromExcel() + amount;
+
                 break;
 
             case "USD":

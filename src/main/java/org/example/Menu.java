@@ -7,6 +7,9 @@ package org.example;
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -55,7 +58,7 @@ public class Menu {
 
 
     public static void mainMenu() {
-        user1.creatingExcelFile();
+
 
         int selection = 001;
         do {
