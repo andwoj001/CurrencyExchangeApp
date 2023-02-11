@@ -7,6 +7,7 @@ package org.example;
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -58,7 +59,11 @@ public class Menu {
 
 
     public static void mainMenu() {
-
+        try {
+            Excel.readFromExcel();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         int selection = 001;
         do {
