@@ -24,7 +24,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 public class Excel {
 
-    public static void readFromExcel() {
+    public static void readFromExcel() throws IOException {
         FileInputStream file = new FileInputStream("D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication/PlikDoOdczytu.xlsx");
         XSSFWorkbook wb;
         wb = new XSSFWorkbook(file);
