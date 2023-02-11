@@ -34,10 +34,7 @@ public class User {
 
             case "PLN":
 
-                if (!(excel.isWorkbookExist())) {
-                    excel.createWorkbook();
-                }
-                PLN = Excel.getPLNFromExcel() + amount;
+                PLN = PLN + amount;
 
                 break;
 

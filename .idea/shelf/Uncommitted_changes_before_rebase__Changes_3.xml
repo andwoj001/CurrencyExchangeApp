@@ -1,0 +1,9 @@
+<changelist name="Uncommitted_changes_before_rebase_[Changes]3" date="1675114520794" recycled="false" toDelete="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]3/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before rebase [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="ExcelSample.xlsx" />
+    <option name="AFTER_PATH" value="ExcelSample.xlsx" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase_[Changes]3/ExcelSample.xlsx" />
+  </binary>
+</changelist>

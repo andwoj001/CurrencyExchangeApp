@@ -1,0 +1,201 @@
+Index: src/main/java/org/example/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/User.java b/src/main/java/org/example/User.java
+--- a/src/main/java/org/example/User.java	
++++ b/src/main/java/org/example/User.java	
+@@ -1,5 +1,6 @@
+ package org.example;
+ 
++import org.apache.poi.ss.usermodel.Cell;
+ import org.apache.poi.ss.usermodel.Row;
+ import org.apache.poi.ss.usermodel.Sheet;
+ import org.apache.poi.ss.usermodel.Workbook;
+@@ -7,20 +8,17 @@
+ 
+ import java.io.*;
+ 
+-
+ public class User {
+ 
+     public static String userName, userPassword;
+     public static int userNumber;
+-    public static double PLN = 0;
++    public static double PLN;
+     public static double USD;
+     public static double EUR;
+     public static double CZK;
+     public static double NOK;
+     public static double DKK;
+ 
+-    static Excel excel = new Excel();
+-
+     public User(String userName, int userNumber, String userPassword) {
+         this.userName = userName;
+         this.userNumber = userNumber;
+@@ -29,15 +27,10 @@
+ 
+     public static void addToUserAccountBalance(double amount, String currency) {
+ 
+-
+         switch (currency) {
+ 
+             case "PLN":
+-
+-                if (!(excel.isWorkbookExist())) {
+-                    excel.createWorkbook();
+-                }
+-                PLN = Excel.getPLNFromExcel() + amount;
++                PLN = PLN + amount;
+ 
+                 break;
+ 
+Index: src/main/java/org/example/Menu.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Menu.java b/src/main/java/org/example/Menu.java
+--- a/src/main/java/org/example/Menu.java	
++++ b/src/main/java/org/example/Menu.java	
+@@ -7,6 +7,15 @@
+ //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
+ 
+ 
++import org.apache.poi.ss.usermodel.Cell;
++import org.apache.poi.ss.usermodel.Row;
++import org.apache.poi.ss.usermodel.Sheet;
++import org.apache.poi.ss.usermodel.Workbook;
++import org.apache.poi.xssf.usermodel.XSSFWorkbook;
++
++import java.io.FileNotFoundException;
++import java.io.FileOutputStream;
++import java.io.IOException;
+ import java.nio.file.Files;
+ import java.nio.file.Path;
+ import java.nio.file.Paths;
+@@ -14,7 +23,6 @@
+ import java.util.*;
+ import java.text.SimpleDateFormat;
+ 
+-
+ public class Menu {
+ 
+ 
+@@ -54,11 +62,15 @@
+ 
+     static String currencyToCheckItsBalanceHistory;
+ 
+-    static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
++
++
++    public static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
++
++
+ 
+ 
+     public static void mainMenu() {
+-
++        Excel.readFromExcel();
+ 
+         int selection = 001;
+         do {
+@@ -92,6 +104,13 @@
+         } while (selection != 1 && selection != 2);
+     }
+ 
++    public static boolean isWorkbookExist(){
++        if (Files.exists(Paths.get("D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication/ExcelSample.xlsx"))) {
++            return true;
++        } else return false;
++
++    }
++
+     public static void clientNumberLoginMenu() {
+         int selection = 001;
+ 
+Index: src/main/java/org/example/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/org/example/Main.java b/src/main/java/org/example/Main.java
+deleted file mode 100644
+--- a/src/main/java/org/example/Main.java	
++++ /dev/null	
+@@ -1,9 +0,0 @@
+-package org.example;
+-
+-public class Main {
+-    public static void main(String[] args) {
+-
+-
+-        Menu.mainMenu();
+-    }
+-}
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	
++++ b/.idea/workspace.xml	
+@@ -6,6 +6,7 @@
+   <component name="ChangeListManager">
+     <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="230206_excel file">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/User.java" afterDir="false" />
+     </list>
+@@ -24,7 +25,7 @@
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+       <map>
+-        <entry key="$PROJECT_DIR$" value="Menu1" />
++        <entry key="$PROJECT_DIR$" value="Excel" />
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+@@ -285,7 +286,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1668714758897</updated>
+     </task>
+-    <option name="localTasksCounter" value="30" />
++    <task id="LOCAL-00030" summary="230206_excel file">
++      <created>1675970566511</created>
++      <option name="number" value="00030" />
++      <option name="presentableId" value="LOCAL-00030" />
++      <option name="project" value="LOCAL" />
++      <updated>1675970566511</updated>
++    </task>
++    <option name="localTasksCounter" value="31" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -321,7 +329,8 @@
+     <MESSAGE value="221111_client password validation, try catch, replace char with String for password variable" />
+     <MESSAGE value="221115_adding user class" />
+     <MESSAGE value="221117_tutorial for creating excel worksheet" />
+-    <option name="LAST_COMMIT_MESSAGE" value="221117_tutorial for creating excel worksheet" />
++    <MESSAGE value="230206_excel file" />
++    <option name="LAST_COMMIT_MESSAGE" value="230206_excel file" />
+   </component>
+   <component name="XDebuggerManager">
+     <breakpoint-manager>
+@@ -330,11 +339,6 @@
+           <properties class="java.util.InputMismatchException" package="java.util" />
+           <option name="timeStamp" value="1" />
+         </breakpoint>
+-        <line-breakpoint enabled="true" type="java-line">
+-          <url>file://$PROJECT_DIR$/src/main/java/org/example/Menu.java</url>
+-          <line>574</line>
+-          <option name="timeStamp" value="2" />
+-        </line-breakpoint>
+       </breakpoints>
+     </breakpoint-manager>
+   </component>
