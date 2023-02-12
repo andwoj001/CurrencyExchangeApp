@@ -12,7 +12,7 @@ public class User {
 
     public static String userName, userPassword;
     public static int userNumber;
-    public static double PLN = 0;
+    public static double PLN;
     public static double USD;
     public static double EUR;
     public static double CZK;
