@@ -59,11 +59,12 @@ public class Menu {
 
 
     public static void mainMenu() {
-        try {
-            Excel.readFromExcel();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Excel.checkFileExistence();
+//        try {
+
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         int selection = 001;
         do {
