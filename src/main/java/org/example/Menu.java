@@ -6,7 +6,6 @@ package org.example;
 
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,13 +14,9 @@ import java.text.DecimalFormat;
 import java.util.*;
 import java.text.SimpleDateFormat;
 
-
 public class Menu {
 
-
-
     // mogę działać na polach dopiero gdy jestem w metodzie ;)
-
 
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
@@ -57,13 +52,14 @@ public class Menu {
 
     static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
 
-
     public static void mainMenu() {
-        try {
-            Excel.readFromExcel();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        Excel.readFromFileIfExists();
+
+//        try {
+
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
 
         int selection = 001;
         do {
