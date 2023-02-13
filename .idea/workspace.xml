@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="230212_excel file_reading and set values">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15_[Changes]/ExcelSample.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15_[Changes]1/ExcelSample.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15_[Changes]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15__Changes_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2023-02-05_21_15__Changes_1.xml" beforeDir="false" />
+    <list default="true" id="6fbbdc11-741c-422a-971c-d45199b91785" name="Changes" comment="230211_excel file_reading working">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Excel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Excel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +23,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="ExcelTylkoOdczytPliku" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -317,21 +309,7 @@
       <option name="project" value="LOCAL" />
       <updated>1676143091617</updated>
     </task>
-    <task id="LOCAL-00033" summary="230212_excel file_reading and set values">
-      <created>1676203571148</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1676203571148</updated>
-    </task>
-    <task id="LOCAL-00034" summary="230212_excel file_reading and set values">
-      <created>1676224602849</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1676224602850</updated>
-    </task>
-    <option name="localTasksCounter" value="35" />
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -370,8 +348,7 @@
     <MESSAGE value="230206_excel file" />
     <MESSAGE value="230211_excel file" />
     <MESSAGE value="230211_excel file_reading working" />
-    <MESSAGE value="230212_excel file_reading and set values" />
-    <option name="LAST_COMMIT_MESSAGE" value="230212_excel file_reading and set values" />
+    <option name="LAST_COMMIT_MESSAGE" value="230211_excel file_reading working" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -382,7 +359,7 @@
         </breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/org/example/Menu.java</url>
-          <line>575</line>
+          <line>579</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
