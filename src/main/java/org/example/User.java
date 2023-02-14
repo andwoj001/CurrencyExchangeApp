@@ -29,7 +29,6 @@ public class User {
 
     public static void addToUserAccountBalance(double amount, String currency) {
 
-
         switch (currency) {
 
             case "PLN":
