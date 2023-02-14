@@ -53,7 +53,23 @@ public class Menu {
     static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
 
     public static void mainMenu() {
-        Excel.readFromFileIfExists();
+        if (Excel.checkFileExistence()) {
+            Excel.readFromFileIfExists();
+        } else {
+            try {
+                Excel.createNewFileIfNotExists();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println(Excel.pln);
+        System.out.println(Excel.usd);
+        System.out.println(Excel.eur);
+        System.out.println(Excel.czk);
+        System.out.println(Excel.nok);
+        System.out.println(Excel.dkk);
+
 
 //        try {
 

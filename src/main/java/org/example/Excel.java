@@ -87,10 +87,20 @@ public class Excel {
 
         Row row1 = sheet1.createRow(1);
         Cell cell10 = row1.createCell(0);
+        Cell cell11 = row1.createCell(1);
+        Cell cell12 = row1.createCell(2);
+        Cell cell13 = row1.createCell(3);
+        Cell cell14 = row1.createCell(4);
+        Cell cell15 = row1.createCell(5);
+        Cell cell16 = row1.createCell(6);
+
         cell10.setCellValue("Balance:");
-
-
-
+        cell11.setCellValue(user1.PLN);
+        cell12.setCellValue(user1.USD);
+        cell13.setCellValue(user1.EUR);
+        cell14.setCellValue(user1.CZK);
+        cell15.setCellValue(user1.DKK);
+        cell16.setCellValue(user1.NOK);
 
         FileOutputStream fileOut = new FileOutputStream("PlikDoOdczytu.xlsx");
         workbook.write(fileOut);
