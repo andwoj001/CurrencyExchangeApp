@@ -1,13 +1,5 @@
 package org.example;
 
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import java.io.*;
-
-
 public class User {
 
     public static String userName, userPassword;
@@ -18,8 +10,6 @@ public class User {
     public static double CZK;
     public static double NOK;
     public static double DKK;
-
-    static Excel excel = new Excel();
 
     public User(String userName, int userNumber, String userPassword) {
         this.userName = userName;
@@ -32,9 +22,7 @@ public class User {
         switch (currency) {
 
             case "PLN":
-
                 PLN = PLN + amount;
-
                 break;
 
             case "USD":
@@ -43,17 +31,22 @@ public class User {
 
             case "EUR":
                 EUR = EUR + amount;
+                break;
 
             case "CZK":
                 CZK = CZK + amount;
+                break;
 
             case "NOK":
                 NOK = NOK + amount;
+                break;
 
             case "DKK":
                 DKK = DKK + amount;
                 break;
+
         }
+        Excel.refreshValuesInExcel();
     }
 
     public void removeFromUserAccountBalance(double amount, String currency) {
@@ -71,18 +64,21 @@ public class User {
 
             case "EUR":
                 EUR = EUR - amount;
+                break;
 
             case "CZK":
                 CZK = CZK - amount;
+                break;
 
             case "NOK":
                 NOK = NOK - amount;
+                break;
 
             case "DKK":
                 DKK = DKK - amount;
                 break;
 
         }
-
+        Excel.refreshValuesInExcel();
     }
 }

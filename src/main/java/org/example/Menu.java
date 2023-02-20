@@ -4,28 +4,30 @@ package org.example;
 // Shift+F10 -> Run metody Main
 // Ctrl+/ -> zakomentowanie zaznaczonego obszaru
 
+
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.*;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+import java.util.Stack;
 
 public class Menu {
 
     // mogę działać na polach dopiero gdy jestem w metodzie ;)
 
+    //postgreSQL
+
     public static final String DATE_FORMAT_NOW = "yyyy-MM-dd HH:mm:ss";
 
-    static Stack<String> stackHistoryPLN = new Stack<String>();
-    static Stack<String> stackHistoryUSD = new Stack<String>();
-    static Stack<String> stackHistoryEUR = new Stack<String>();
-    static Stack<String> stackHistoryCZK = new Stack<String>();
-    static Stack<String> stackHistoryDKK = new Stack<String>();
-    static Stack<String> stackHistoryNOK = new Stack<String>();
+    static Stack<String> stackHistoryPLN = new Stack<>();
+    static Stack<String> stackHistoryUSD = new Stack<>();
+    static Stack<String> stackHistoryEUR = new Stack<>();
+    static Stack<String> stackHistoryCZK = new Stack<>();
+    static Stack<String> stackHistoryDKK = new Stack<>();
+    static Stack<String> stackHistoryNOK = new Stack<>();
 
     static int clientNumber = 0;
     static String clientPassword = "0";
@@ -34,15 +36,6 @@ public class Menu {
     static String currencySelectedToCalculation_Withdrawal;
 
     static double amount;
-
-    static double balancePLN = 0;
-    static double balanceUSD = 0;
-    static double balanceEUR = 0;
-    static double balanceCZK = 0;
-    static double balanceNOK = 0;
-    static double balanceDKK = 0;
-
-    static String whoIsLogin;
 
     static String currencyToBeExchange;
     static String currencyToBeExchangeFor;
@@ -53,29 +46,6 @@ public class Menu {
     static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
 
     public static void mainMenu() {
-        if (Excel.checkFileExistence()) {
-            Excel.readFromFileIfExists();
-        } else {
-            try {
-                Excel.createNewFileIfNotExists();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-        System.out.println(Excel.pln);
-        System.out.println(Excel.usd);
-        System.out.println(Excel.eur);
-        System.out.println(Excel.czk);
-        System.out.println(Excel.nok);
-        System.out.println(Excel.dkk);
-
-
-//        try {
-
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
 
         int selection = 001;
         do {
@@ -83,17 +53,17 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("*** Currency Exchange ***");
-            System.out.println("1. Login");
-            System.out.println("0. Exit");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("*** Currency Exchange ***");
+                    System.out.println("1. Login");
+                    System.out.println("0. Exit");
 
-            selection = scan.nextInt();
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
                 }
-    } while (isCatch == true);
+            } while (isCatch == true);
 
             switch (selection) {
                 case 1:
@@ -117,11 +87,11 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        System.out.println(">> Enter your client number and password to activate client panel <<" + "\n");
-        System.out.println("1. Enter your client number");
-        System.out.println("0. Cancel to previous menu");
-        selection = scan.nextInt();
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println(">> Enter your client number and password to activate client panel <<" + "\n");
+                    System.out.println("1. Enter your client number");
+                    System.out.println("0. Cancel to previous menu");
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -161,11 +131,11 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("1. Enter your client password");
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("1. Enter your client password");
+                    System.out.println("0. Cancel to previous menu");
 
-            selection = scan.nextInt();
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -178,9 +148,9 @@ public class Menu {
                     do {
                         try {
                             isCatch2 = false;
-                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-                    System.out.println("Enter your client password: ");
-                    clientPassword = scan.next();
+                            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                            System.out.println("Enter your client password: ");
+                            clientPassword = scan.next();
                         } catch (InputMismatchException e) {
                             isCatch2 = true;
                             scan.nextLine();
@@ -189,7 +159,6 @@ public class Menu {
 
 
                     if (clientNumber == 123456 && "ABC123".equals(clientPassword)) {
-                        whoIsLogin = "Andrzej Wojciechowski";
                         clientPanelMenu();
                     } else {
                         clientPasswordLoginMenu();
@@ -213,16 +182,16 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("*** Client panel ***");
-            System.out.println("1. Deposit");
-            System.out.println("2. Withdrawal");
-            System.out.println("3. Check account balance");
-            System.out.println("4. Check account balance history");
-            System.out.println("5. Currency exchange");
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("*** Client panel ***");
+                    System.out.println("1. Deposit");
+                    System.out.println("2. Withdrawal");
+                    System.out.println("3. Check account balance");
+                    System.out.println("4. Check account balance history");
+                    System.out.println("5. Currency exchange");
+                    System.out.println("0. Cancel to previous menu");
 
-            selection = scan.nextInt();
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -264,12 +233,12 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Select currency to deposit:");
-            printCurrencySelectionMenu();
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Select currency to deposit:");
+                    printCurrencySelectionMenu();
+                    System.out.println("0. Cancel to previous menu");
 
-            selectedCurrencyToDeposit = scan.nextInt();
+                    selectedCurrencyToDeposit = scan.nextInt();
 
                 } catch (InputMismatchException e) {
                     isCatch = true;
@@ -318,12 +287,12 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Select currency to check its balance history:");
-            printCurrencySelectionMenu();
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Select currency to check its balance history:");
+                    printCurrencySelectionMenu();
+                    System.out.println("0. Cancel to previous menu");
 
-            selection = scan.nextInt();
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -372,12 +341,12 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Select currency to withdrawal:");
-            printCurrencySelectionMenu();
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Select currency to withdrawal:");
+                    printCurrencySelectionMenu();
+                    System.out.println("0. Cancel to previous menu");
 
-            selectedCurrencyToWithdrawal = scan.nextInt();
+                    selectedCurrencyToWithdrawal = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -428,17 +397,17 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Your account balance:");
-            System.out.println("PLN  " + df.format(balancePLN));
-            System.out.println("USD  " + df.format(balanceUSD));
-            System.out.println("EUR  " + df.format(balanceEUR));
-            System.out.println("CZK  " + df.format(balanceCZK));
-            System.out.println("NOK  " + df.format(balanceNOK));
-            System.out.println("DKK  " + df.format(balanceDKK));
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Your account balance:");
+                    System.out.println("PLN  " + df.format(user1.PLN));
+                    System.out.println("USD  " + df.format(user1.USD));
+                    System.out.println("EUR  " + df.format(user1.EUR));
+                    System.out.println("CZK  " + df.format(user1.CZK));
+                    System.out.println("NOK  " + df.format(user1.NOK));
+                    System.out.println("DKK  " + df.format(user1.DKK));
+                    System.out.println("0. Cancel to previous menu");
 
-            selection = scan.nextInt();
+                    selection = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -461,12 +430,12 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Select currency to be exchange:");
-            printCurrencySelectionMenu();
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Select currency to be exchange:");
+                    printCurrencySelectionMenu();
+                    System.out.println("0. Cancel to previous menu");
 
-            selectedCurrencyToBeExchange = scan.nextInt();
+                    selectedCurrencyToBeExchange = scan.nextInt();
 
                 } catch (InputMismatchException e) {
                     isCatch = true;
@@ -516,12 +485,12 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Select currency to be exchanged for:");
-            printCurrencySelectionMenu();
-            System.out.println("0. Cancel to previous menu");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Select currency to be exchanged for:");
+                    printCurrencySelectionMenu();
+                    System.out.println("0. Cancel to previous menu");
 
-            selectedCurrencyToBeExchangedFor = scan.nextInt();
+                    selectedCurrencyToBeExchangedFor = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -575,9 +544,9 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Enter amount: ");
-            amount = scan.nextDouble();
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Enter amount: ");
+                    amount = scan.nextDouble();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -590,7 +559,7 @@ public class Menu {
             user1.addToUserAccountBalance(amount, currencySelectedToCalculation_Deposit);
             balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false, amount);
         } else if (isWithdrawal == true) {
-            calculateAccountBalance_Withdrawal(currencySelectedToCalculation_Withdrawal, amount);
+            user1.removeFromUserAccountBalance(amount, currencySelectedToCalculation_Withdrawal);
             balanceHistoryCalculation(currencySelectedToCalculation_Withdrawal, false, true, false, false, amount);
         }
 
@@ -601,15 +570,15 @@ public class Menu {
             do {
                 try {
                     isCatch2 = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("The operation has been completed successfully. The account balance has been updated");
-            System.out.println("0. Exit to client panel");
-            scanner = scan.nextInt();
-        } catch (InputMismatchException e) {
-            isCatch2 = true;
-            scan.nextLine();
-        }
-    } while (isCatch2 == true);
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("The operation has been completed successfully. The account balance has been updated");
+                    System.out.println("0. Exit to client panel");
+                    scanner = scan.nextInt();
+                } catch (InputMismatchException e) {
+                    isCatch2 = true;
+                    scan.nextLine();
+                }
+            } while (isCatch2 == true);
 
         } while (scanner != 0);
 
@@ -626,10 +595,10 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("Enter amount: ");
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("Enter amount: ");
 
-            amount = scan.nextInt();
+                    amount = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -651,10 +620,10 @@ public class Menu {
             do {
                 try {
                     isCatch = false;
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("The currency has been exchanged");
-            System.out.println("0. Exit to client panel");
-            scanner = scan.nextInt();
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("The currency has been exchanged");
+                    System.out.println("0. Exit to client panel");
+                    scanner = scan.nextInt();
                 } catch (InputMismatchException e) {
                     isCatch = true;
                     scan.nextLine();
@@ -674,158 +643,128 @@ public class Menu {
                 try {
                     isCatch = false;
 
-            System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            System.out.println("History of transactions (last 3):");
-            if ("PLN".equals(currency)) {
-                if (stackHistoryPLN.size() > 0) {
-                    System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 1));
-                    if (stackHistoryPLN.size() > 1) {
-                        System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 2));
-                        if (stackHistoryPLN.size() > 2) {
-                            System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 3));
+                    System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+                    System.out.println("History of transactions (last 3):");
+                    if ("PLN".equals(currency)) {
+                        if (stackHistoryPLN.size() > 0) {
+                            System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 1));
+                            if (stackHistoryPLN.size() > 1) {
+                                System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 2));
+                                if (stackHistoryPLN.size() > 2) {
+                                    System.out.println(stackHistoryPLN.get(stackHistoryPLN.size() - 3));
+                                }
+                            }
+                        }
+                    } else if ("USD".equals(currency)) {
+                        if (stackHistoryUSD.size() > 0) {
+                            System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 1));
+                            if (stackHistoryUSD.size() > 1) {
+                                System.out.println(stackHistoryPLN.get(stackHistoryUSD.size() - 2));
+                                if (stackHistoryUSD.size() > 2) {
+                                    System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 3));
+                                }
+                            }
+                        }
+                    } else if ("EUR".equals(currency)) {
+                        if (stackHistoryEUR.size() > 0) {
+                            System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 1));
+                            if (stackHistoryEUR.size() > 1) {
+                                System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 2));
+                                if (stackHistoryEUR.size() > 2) {
+                                    System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 3));
+                                }
+                            }
+                        }
+                    } else if ("CZK".equals(currency)) {
+                        if (stackHistoryCZK.size() > 0) {
+                            System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 1));
+                            if (stackHistoryCZK.size() > 1) {
+                                System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 2));
+                                if (stackHistoryCZK.size() > 2) {
+                                    System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 3));
+                                }
+                            }
+                        }
+                    } else if ("DKK".equals(currency)) {
+                        if (stackHistoryDKK.size() > 0) {
+                            System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 1));
+                            if (stackHistoryDKK.size() > 1) {
+                                System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 2));
+                                if (stackHistoryDKK.size() > 2) {
+                                    System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 3));
+                                }
+                            }
+                        }
+                    } else if ("NOK".equals(currency)) {
+                        if (stackHistoryNOK.size() > 0) {
+                            System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 1));
+                            if (stackHistoryNOK.size() > 1) {
+                                System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 2));
+                                if (stackHistoryNOK.size() > 2) {
+                                    System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 3));
+                                }
+                            }
                         }
                     }
-                }
-            } else if ("USD".equals(currency)) {
-                if (stackHistoryUSD.size() > 0) {
-                    System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 1));
-                    if (stackHistoryUSD.size() > 1) {
-                        System.out.println(stackHistoryPLN.get(stackHistoryUSD.size() - 2));
-                        if (stackHistoryUSD.size() > 2) {
-                            System.out.println(stackHistoryUSD.get(stackHistoryUSD.size() - 3));
-                        }
-                    }
-                }
-            } else if ("EUR".equals(currency)) {
-                if (stackHistoryEUR.size() > 0) {
-                    System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 1));
-                    if (stackHistoryEUR.size() > 1) {
-                        System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 2));
-                        if (stackHistoryEUR.size() > 2) {
-                            System.out.println(stackHistoryEUR.get(stackHistoryEUR.size() - 3));
-                        }
-                    }
-                }
-            } else if ("CZK".equals(currency)) {
-                if (stackHistoryCZK.size() > 0) {
-                    System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 1));
-                    if (stackHistoryCZK.size() > 1) {
-                        System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 2));
-                        if (stackHistoryCZK.size() > 2) {
-                            System.out.println(stackHistoryCZK.get(stackHistoryCZK.size() - 3));
-                        }
-                    }
-                }
-            } else if ("DKK".equals(currency)) {
-                if (stackHistoryDKK.size() > 0) {
-                    System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 1));
-                    if (stackHistoryDKK.size() > 1) {
-                        System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 2));
-                        if (stackHistoryDKK.size() > 2) {
-                            System.out.println(stackHistoryDKK.get(stackHistoryDKK.size() - 3));
-                        }
-                    }
-                }
-            } else if ("NOK".equals(currency)) {
-                if (stackHistoryNOK.size() > 0) {
-                    System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 1));
-                    if (stackHistoryNOK.size() > 1) {
-                        System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 2));
-                        if (stackHistoryNOK.size() > 2) {
-                            System.out.println(stackHistoryNOK.get(stackHistoryNOK.size() - 3));
-                        }
-                    }
-                }
-            }
-            System.out.println("0. Exit to client panel");
-            scanner = scan.nextInt();
+                    System.out.println("0. Exit to client panel");
+                    scanner = scan.nextInt();
 
 
-        } catch (InputMismatchException e) {
-            isCatch = true;
-            scan.nextLine();
-        }
-    } while (isCatch == true);
+                } catch (InputMismatchException e) {
+                    isCatch = true;
+                    scan.nextLine();
+                }
+            } while (isCatch == true);
 
         } while (scanner != 0);
         clientPanelMenu();
     }
 
     public static void printCurrencySelectionMenu() {
-            System.out.println("1. PLN");
-            System.out.println("2. USD");
-            System.out.println("3. EUR");
-            System.out.println("4. CZK");
-            System.out.println("5. NOK");
-            System.out.println("6. DKK");
-    }
-
-    public static void calculateAccountBalance_Deposit(String currencySelectedToCalculation_Deposit, double amount) {
-
-        if ("PLN".equals(currencySelectedToCalculation_Deposit)) {
-            balancePLN = balancePLN + amount;
-        } else if ("USD".equals(currencySelectedToCalculation_Deposit)) {
-            balanceUSD = balanceUSD + amount;
-        }   else if ("EUR".equals(currencySelectedToCalculation_Deposit)) {
-            balanceEUR = balanceEUR + amount;
-        }   else if ("CZK".equals(currencySelectedToCalculation_Deposit)) {
-            balanceCZK = balanceCZK + amount;
-        }   else if ("NOK".equals(currencySelectedToCalculation_Deposit)) {
-            balanceNOK = balanceNOK + amount;
-        }   else if ("DKK".equals(currencySelectedToCalculation_Deposit)) {
-            balanceDKK = balanceDKK + amount;
-        }
-
-    }
-
-    public static void calculateAccountBalance_Withdrawal(String currencySelectedToCalculation_Withdrawal, double amount) {
-
-        if ("PLN".equals(currencySelectedToCalculation_Withdrawal)) {
-            balancePLN = balancePLN - amount;
-            if (balancePLN < 0) {
-                balancePLN = 0;
-            }
-        } else if ("USD".equals(currencySelectedToCalculation_Withdrawal)) {
-            balanceUSD = balanceUSD - amount;
-            if (balanceUSD < 0) {
-                balanceUSD = 0;
-            }
-        }   else if ("EUR".equals(currencySelectedToCalculation_Withdrawal)) {
-            balanceEUR = balanceEUR - amount;
-            if (balanceEUR < 0) {
-                balanceEUR = 0;
-            }
-        }   else if ("CZK".equals(currencySelectedToCalculation_Withdrawal)) {
-            balanceCZK = balanceCZK - amount;
-            if (balanceCZK < 0) {
-                balanceCZK = 0;
-            }
-        }   else if ("NOK".equals(currencySelectedToCalculation_Withdrawal)) {
-            balanceNOK = balanceNOK - amount;
-            if (balanceNOK < 0) {
-                balanceNOK = 0;
-            }
-        }   else if ("DKK".equals(currencySelectedToCalculation_Withdrawal)) {
-            balanceDKK = balanceDKK - amount;
-            if (balanceDKK < 0) {
-                balanceDKK = 0;
-            }
-        }
-
+        System.out.println("1. PLN");
+        System.out.println("2. USD");
+        System.out.println("3. EUR");
+        System.out.println("4. CZK");
+        System.out.println("5. NOK");
+        System.out.println("6. DKK");
     }
 
     public static void currencyExchangeCalculation(String currencyToBeExchange, String currencyToBeExchangeFor, double amountOfCurrencyToBeExchange) {
-        double PLNtoUSD = 0.21; double PLNtoEUR = 0.21;  double PLNtoCZK = 5.20; double PLNtoNOK = 2.17; double PLNtoDKK = 1.58;
-        double USDtoPLN = 4.73; double USDtoEUR = 1.00;  double USDtoCZK = 24.59; double USDtoNOK = 10.31; double USDtoDKK = 7.47;
-        double EURtoPLN = 4.72; double EURtoUSD = 1.00;  double EURtoCZK = 24.51; double EURtoNOK = 10.26; double EURtoDKK = 7.44;
-        double CZKtoPLN = 0.19; double CZKtoUSD = 0.041;  double CZKtoEUR = 0.041; double CZKtoNOK = 0.42; double CZKtoDKK = 0.30;
-        double NOKtoPLN = 0.45; double NOKtoUSD = 0.096;  double NOKtoEUR = 0.097; double NOKtoCZK = 2.36; double NOKtoDKK = 0.72;
-        double DKKtoPLN = 0.63; double DKKtoUSD = 0.13;  double DKKtoEUR = 0.13; double DKKtoCZK = 3.29; double DKKtoNOK = 1.38;
+        double PLNtoUSD = 0.21;
+        double PLNtoEUR = 0.21;
+        double PLNtoCZK = 5.20;
+        double PLNtoNOK = 2.17;
+        double PLNtoDKK = 1.58;
+        double USDtoPLN = 4.73;
+        double USDtoEUR = 1.00;
+        double USDtoCZK = 24.59;
+        double USDtoNOK = 10.31;
+        double USDtoDKK = 7.47;
+        double EURtoPLN = 4.72;
+        double EURtoUSD = 1.00;
+        double EURtoCZK = 24.51;
+        double EURtoNOK = 10.26;
+        double EURtoDKK = 7.44;
+        double CZKtoPLN = 0.19;
+        double CZKtoUSD = 0.041;
+        double CZKtoEUR = 0.041;
+        double CZKtoNOK = 0.42;
+        double CZKtoDKK = 0.30;
+        double NOKtoPLN = 0.45;
+        double NOKtoUSD = 0.096;
+        double NOKtoEUR = 0.097;
+        double NOKtoCZK = 2.36;
+        double NOKtoDKK = 0.72;
+        double DKKtoPLN = 0.63;
+        double DKKtoUSD = 0.13;
+        double DKKtoEUR = 0.13;
+        double DKKtoCZK = 3.29;
+        double DKKtoNOK = 1.38;
 
         int scanner;
 
         if ("PLN".equals(currencyToBeExchange) && "USD".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balancePLN) {
+            if (amountOfCurrencyToBeExchange > user1.PLN) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -834,12 +773,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            user1.PLN = user1.PLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * PLNtoUSD);
+            user1.USD = user1.USD + (amountOfCurrencyToBeExchange * PLNtoUSD);
             balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoUSD);
         } else if ("PLN".equals(currencyToBeExchange) && "EUR".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balancePLN) {
+            if (amountOfCurrencyToBeExchange > user1.PLN) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -848,12 +787,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            user1.PLN = user1.PLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * PLNtoEUR);
+            user1.EUR = user1.EUR + (amountOfCurrencyToBeExchange * PLNtoEUR);
             balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoEUR);
         } else if ("PLN".equals(currencyToBeExchange) && "CZK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balancePLN) {
+            if (amountOfCurrencyToBeExchange > user1.PLN) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -862,12 +801,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            user1.PLN = user1.PLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * PLNtoCZK);
+            user1.CZK = user1.CZK + (amountOfCurrencyToBeExchange * PLNtoCZK);
             balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoCZK);
         } else if ("PLN".equals(currencyToBeExchange) && "NOK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balancePLN) {
+            if (amountOfCurrencyToBeExchange > user1.PLN) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -876,12 +815,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            user1.PLN = user1.PLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * PLNtoNOK);
+            user1.NOK = user1.NOK + (amountOfCurrencyToBeExchange * PLNtoNOK);
             balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoNOK);
         } else if ("PLN".equals(currencyToBeExchange) && "DKK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balancePLN) {
+            if (amountOfCurrencyToBeExchange > user1.PLN) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -890,14 +829,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balancePLN = balancePLN - amountOfCurrencyToBeExchange;
+            user1.PLN = user1.PLN - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("PLN", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * PLNtoDKK);
+            user1.DKK = user1.DKK + (amountOfCurrencyToBeExchange * PLNtoDKK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * PLNtoDKK);
-        }
-
-        else if ("USD".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceUSD) {
+        } else if ("USD".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
+            if (amountOfCurrencyToBeExchange > user1.USD) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -906,12 +843,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            user1.USD = user1.USD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
-            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * USDtoPLN);
+            user1.PLN = user1.PLN + (amountOfCurrencyToBeExchange * USDtoPLN);
             balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * USDtoPLN);
         } else if ("USD".equals(currencyToBeExchange) && "EUR".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceUSD) {
+            if (amountOfCurrencyToBeExchange > user1.USD) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -920,12 +857,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            user1.USD = user1.USD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * USDtoEUR);
+            user1.EUR = user1.EUR + (amountOfCurrencyToBeExchange * USDtoEUR);
             balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * USDtoEUR);
         } else if ("USD".equals(currencyToBeExchange) && "CZK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceUSD) {
+            if (amountOfCurrencyToBeExchange > user1.USD) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -934,12 +871,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            user1.USD = user1.USD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * USDtoCZK);
+            user1.CZK = user1.CZK + (amountOfCurrencyToBeExchange * USDtoCZK);
             balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoCZK);
         } else if ("USD".equals(currencyToBeExchange) && "NOK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceUSD) {
+            if (amountOfCurrencyToBeExchange > user1.USD) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -948,12 +885,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            user1.USD = user1.USD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * USDtoNOK);
+            user1.NOK = user1.NOK + (amountOfCurrencyToBeExchange * USDtoNOK);
             balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoNOK);
         } else if ("USD".equals(currencyToBeExchange) && "DKK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceUSD) {
+            if (amountOfCurrencyToBeExchange > user1.USD) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -962,14 +899,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceUSD = balanceUSD - amountOfCurrencyToBeExchange;
+            user1.USD = user1.USD - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("USD", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * USDtoDKK);
+            user1.DKK = user1.DKK + (amountOfCurrencyToBeExchange * USDtoDKK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * USDtoDKK);
-        }
-
-        else if ("EUR".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceEUR) {
+        } else if ("EUR".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
+            if (amountOfCurrencyToBeExchange > user1.EUR) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -978,12 +913,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            user1.EUR = user1.EUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
-            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * EURtoPLN);
+            user1.PLN = user1.PLN + (amountOfCurrencyToBeExchange * EURtoPLN);
             balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * EURtoPLN);
         } else if ("EUR".equals(currencyToBeExchange) && "USD".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceEUR) {
+            if (amountOfCurrencyToBeExchange > user1.EUR) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -992,12 +927,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            user1.EUR = user1.EUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * EURtoUSD);
+            user1.USD = user1.USD + (amountOfCurrencyToBeExchange * EURtoUSD);
             balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * EURtoUSD);
         } else if ("EUR".equals(currencyToBeExchange) && "CZK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceEUR) {
+            if (amountOfCurrencyToBeExchange > user1.EUR) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1006,12 +941,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            user1.EUR = user1.EUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * EURtoCZK);
+            user1.CZK = user1.CZK + (amountOfCurrencyToBeExchange * EURtoCZK);
             balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoCZK);
         } else if ("EUR".equals(currencyToBeExchange) && "NOK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceEUR) {
+            if (amountOfCurrencyToBeExchange > user1.EUR) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1020,12 +955,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            user1.EUR = user1.EUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * EURtoNOK);
+            user1.NOK = user1.NOK + (amountOfCurrencyToBeExchange * EURtoNOK);
             balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoNOK);
         } else if ("EUR".equals(currencyToBeExchange) && "DKK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceEUR) {
+            if (amountOfCurrencyToBeExchange > user1.EUR) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1034,14 +969,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceEUR = balanceEUR - amountOfCurrencyToBeExchange;
+            user1.EUR = user1.EUR - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("EUR", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * EURtoDKK);
+            user1.DKK = user1.DKK + (amountOfCurrencyToBeExchange * EURtoDKK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * EURtoDKK);
-        }
-
-        else if ("CZK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceCZK) {
+        } else if ("CZK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
+            if (amountOfCurrencyToBeExchange > user1.CZK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1050,12 +983,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            user1.CZK = user1.CZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * CZKtoPLN);
+            user1.PLN = user1.PLN + (amountOfCurrencyToBeExchange * CZKtoPLN);
             balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoPLN);
         } else if ("CZK".equals(currencyToBeExchange) && "USD".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceCZK) {
+            if (amountOfCurrencyToBeExchange > user1.CZK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1064,12 +997,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            user1.CZK = user1.CZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * CZKtoUSD);
+            user1.USD = user1.USD + (amountOfCurrencyToBeExchange * CZKtoUSD);
             balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoUSD);
         } else if ("CZK".equals(currencyToBeExchange) && "EUR".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceCZK) {
+            if (amountOfCurrencyToBeExchange > user1.CZK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1078,12 +1011,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            user1.CZK = user1.CZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * CZKtoEUR);
+            user1.EUR = user1.EUR + (amountOfCurrencyToBeExchange * CZKtoEUR);
             balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoEUR);
         } else if ("CZK".equals(currencyToBeExchange) && "NOK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceCZK) {
+            if (amountOfCurrencyToBeExchange > user1.CZK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1092,12 +1025,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            user1.CZK = user1.CZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * CZKtoNOK);
+            user1.NOK = user1.NOK + (amountOfCurrencyToBeExchange * CZKtoNOK);
             balanceHistoryCalculation("NOK", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoNOK);
         } else if ("CZK".equals(currencyToBeExchange) && "DKK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceCZK) {
+            if (amountOfCurrencyToBeExchange > user1.CZK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1106,14 +1039,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceCZK = balanceCZK - amountOfCurrencyToBeExchange;
+            user1.CZK = user1.CZK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("CZK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * CZKtoDKK);
+            user1.DKK = user1.DKK + (amountOfCurrencyToBeExchange * CZKtoDKK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * CZKtoDKK);
-        }
-
-        else if ("NOK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceNOK) {
+        } else if ("NOK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
+            if (amountOfCurrencyToBeExchange > user1.NOK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1122,12 +1053,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            user1.NOK = user1.NOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * NOKtoPLN);
+            user1.PLN = user1.PLN + (amountOfCurrencyToBeExchange * NOKtoPLN);
             balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoPLN);
         } else if ("NOK".equals(currencyToBeExchange) && "USD".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceNOK) {
+            if (amountOfCurrencyToBeExchange > user1.NOK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1136,12 +1067,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            user1.NOK = user1.NOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * NOKtoUSD);
+            user1.USD = user1.USD + (amountOfCurrencyToBeExchange * NOKtoUSD);
             balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoUSD);
         } else if ("NOK".equals(currencyToBeExchange) && "EUR".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceNOK) {
+            if (amountOfCurrencyToBeExchange > user1.NOK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1150,12 +1081,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            user1.NOK = user1.NOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * NOKtoEUR);
+            user1.EUR = user1.EUR + (amountOfCurrencyToBeExchange * NOKtoEUR);
             balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoEUR);
         } else if ("NOK".equals(currencyToBeExchange) && "CZK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceNOK) {
+            if (amountOfCurrencyToBeExchange > user1.NOK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1164,12 +1095,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            user1.NOK = user1.NOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * NOKtoCZK);
+            user1.CZK = user1.CZK + (amountOfCurrencyToBeExchange * NOKtoCZK);
             balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoCZK);
         } else if ("NOK".equals(currencyToBeExchange) && "DKK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceNOK) {
+            if (amountOfCurrencyToBeExchange > user1.NOK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1178,14 +1109,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceNOK = balanceNOK - amountOfCurrencyToBeExchange;
+            user1.NOK = user1.NOK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("NOK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceDKK = balanceDKK + (amountOfCurrencyToBeExchange * NOKtoDKK);
+            user1.DKK = user1.DKK + (amountOfCurrencyToBeExchange * NOKtoDKK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * NOKtoDKK);
-        }
-
-        else if ("DKK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceDKK) {
+        } else if ("DKK".equals(currencyToBeExchange) && "PLN".equals(currencyToBeExchangeFor)) {
+            if (amountOfCurrencyToBeExchange > user1.DKK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1194,12 +1123,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            user1.DKK = user1.DKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balancePLN = balancePLN + (amountOfCurrencyToBeExchange * DKKtoPLN);
+            user1.PLN = user1.PLN + (amountOfCurrencyToBeExchange * DKKtoPLN);
             balanceHistoryCalculation("PLN", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoPLN);
         } else if ("DKK".equals(currencyToBeExchange) && "USD".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceDKK) {
+            if (amountOfCurrencyToBeExchange > user1.DKK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1208,12 +1137,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            user1.DKK = user1.DKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceUSD = balanceUSD + (amountOfCurrencyToBeExchange * DKKtoUSD);
+            user1.USD = user1.USD + (amountOfCurrencyToBeExchange * DKKtoUSD);
             balanceHistoryCalculation("USD", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoUSD);
         } else if ("DKK".equals(currencyToBeExchange) && "EUR".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceDKK) {
+            if (amountOfCurrencyToBeExchange > user1.DKK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1222,12 +1151,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            user1.DKK = user1.DKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceEUR = balanceEUR + (amountOfCurrencyToBeExchange * DKKtoEUR);
+            user1.EUR = user1.EUR + (amountOfCurrencyToBeExchange * DKKtoEUR);
             balanceHistoryCalculation("EUR", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoEUR);
         } else if ("DKK".equals(currencyToBeExchange) && "CZK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceDKK) {
+            if (amountOfCurrencyToBeExchange > user1.DKK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1236,12 +1165,12 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            user1.DKK = user1.DKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceCZK = balanceCZK + (amountOfCurrencyToBeExchange * DKKtoCZK);
+            user1.CZK = user1.CZK + (amountOfCurrencyToBeExchange * DKKtoCZK);
             balanceHistoryCalculation("CZK", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoCZK);
         } else if ("DKK".equals(currencyToBeExchange) && "NOK".equals(currencyToBeExchangeFor)) {
-            if (amountOfCurrencyToBeExchange > balanceDKK) {
+            if (amountOfCurrencyToBeExchange > user1.DKK) {
                 do {
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("You do not have enough funds to complete this operation");
@@ -1250,9 +1179,9 @@ public class Menu {
                 } while (scanner != 0);
                 clientPanelMenu();
             }
-            balanceDKK = balanceDKK - amountOfCurrencyToBeExchange;
+            user1.DKK = user1.DKK - amountOfCurrencyToBeExchange;
             balanceHistoryCalculation("DKK", false, false, false, true, amountOfCurrencyToBeExchange);
-            balanceNOK = balanceNOK + (amountOfCurrencyToBeExchange * DKKtoNOK);
+            user1.NOK = user1.NOK + (amountOfCurrencyToBeExchange * DKKtoNOK);
             balanceHistoryCalculation("DKK", false, false, true, false, amountOfCurrencyToBeExchange * DKKtoNOK);
         }
     }
@@ -1268,86 +1197,86 @@ public class Menu {
         if ("PLN".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balancePLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balancePLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balancePLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balancePLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
             }
         } else if ("USD".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balanceUSD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balanceUSD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balanceUSD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balanceUSD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
             }
         } else if ("EUR".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balanceEUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balanceEUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balanceEUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balanceEUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
             }
         } else if ("CZK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balanceCZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balanceCZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balanceCZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balanceCZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
             }
         } else if ("NOK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balanceNOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balanceNOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balanceNOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balanceNOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
             }
         } else if ("DKK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + balanceDKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + balanceDKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + balanceDKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + balanceDKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
             }
         }
 

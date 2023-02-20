@@ -13,13 +13,6 @@ import static org.example.Menu.user1;
 
 public class Excel {
 
-    public static double pln;
-    public static double usd;
-    public static double eur;
-    public static double czk;
-    public static double nok;
-    public static double dkk;
-
     public static boolean checkFileExistence() {
         String filename = "PlikDoOdczytu.xlsx";
         String directory = "D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication";
@@ -46,12 +39,12 @@ public class Excel {
 //            Cell cell = row.getCell(1);
 //            cell.getNumericCellValue();
 
-            pln = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
-            usd = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
-            eur = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
-            czk = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
-            nok = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
-            dkk = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
+            user1.PLN = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
+            user1.USD = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
+            user1.EUR = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
+            user1.CZK = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
+            user1.DKK = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
+            user1.NOK = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
 
             workbook.close();
             file.close();
@@ -60,7 +53,6 @@ public class Excel {
         }
 
     }
-
 
     public static void createNewFileIfNotExists() throws IOException {
         Workbook workbook = new XSSFWorkbook();
@@ -83,8 +75,6 @@ public class Excel {
         cell05.setCellValue("DKK");
         cell06.setCellValue("NOK");
 
-        //todo: dalej tworzyć plik excela
-
         Row row1 = sheet1.createRow(1);
         Cell cell10 = row1.createCell(0);
         Cell cell11 = row1.createCell(1);
@@ -106,12 +96,39 @@ public class Excel {
         workbook.write(fileOut);
         fileOut.close();
 
-        // Close the workbook
         workbook.close();
-
-        String d = String.valueOf(workbook.getSheet("Andrzej Wojciechowski").getRow(0).getCell(0));
-        System.out.println(d);
     }
 
+    public static void refreshValuesInExcel(){
+        try {
+            FileInputStream file = new FileInputStream(new File("D:/JAVA/221004_CurrencyExchangeApplication/CurrencyExchangeApplication/PlikDoOdczytu.xlsx"));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
 
+
+//            XSSFSheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(1);
+//            Cell cell = row.getCell(1);
+//            cell.getNumericCellValue();
+
+//            workbook.close();
+//            file.close();
+
+            workbook.getSheetAt(0).getRow(1).getCell(1).setCellValue(user1.PLN);
+            workbook.getSheetAt(0).getRow(1).getCell(2).setCellValue(user1.USD);
+            workbook.getSheetAt(0).getRow(1).getCell(3).setCellValue(user1.EUR);
+            workbook.getSheetAt(0).getRow(1).getCell(4).setCellValue(user1.CZK);
+            workbook.getSheetAt(0).getRow(1).getCell(5).setCellValue(user1.DKK);
+            workbook.getSheetAt(0).getRow(1).getCell(6).setCellValue(user1.NOK);
+
+            FileOutputStream fileOut = new FileOutputStream("PlikDoOdczytu.xlsx");
+            workbook.write(fileOut);
+
+            fileOut.close();
+
+            workbook.close();
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
