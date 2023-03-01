@@ -2,14 +2,16 @@ package org.example;
 
 public class User {
 
-    public static String userName, userPassword;
+    public String userName;
+    public static String userPassword;
     public static int userNumber;
-    public static double PLN;
-    public static double USD;
-    public static double EUR;
-    public static double CZK;
-    public static double NOK;
-    public static double DKK;
+    public static boolean isLoggedIn;
+    public double PLN;
+    public double USD;
+    public double EUR;
+    public double CZK;
+    public double NOK;
+    public double DKK;
 
     public User(String userName, int userNumber, String userPassword) {
         this.userName = userName;
@@ -17,7 +19,7 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public static void addToUserAccountBalance(double amount, String currency) {
+    public void addToUserAccountBalance(double amount, String currency) {
 
         switch (currency) {
 
@@ -80,5 +82,22 @@ public class User {
 
         }
         Excel.refreshValuesInExcel();
+    }
+
+    public static boolean isUserNumberAndUserPasswordCorrectSetLogIn(int userNumber, String userPassword){
+        for (User user : UsersList.usersList) { // przeszukujemy listę użytkowników
+            if (user.userNumber == userNumber && user.userPassword.equals(userPassword)) {
+                user.isLoggedIn = true;
+                return true;
+            }
+        } return false;
+    }
+
+    public static User getLoggedInUser() {
+        for (User user : UsersList.usersList) { // Przechodzimy przez wszystkich użytkowników w liście usersList
+            if (user.isLoggedIn) { // Sprawdzamy czy użytkownik jest zalogowany
+                return user; // Jeśli tak, to zwracamy ten obiekt User
+            }
+        } return null; // Jeśli nie znaleziono użytkownika zalogowanego, to zwracamy null
     }
 }

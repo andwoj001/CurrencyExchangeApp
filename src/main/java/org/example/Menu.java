@@ -43,11 +43,12 @@ public class Menu {
 
     static String currencyToCheckItsBalanceHistory;
 
-    static User user1 = new User("Andrzej Wojciechowski", 123456, "ABC123");
+    static User user1;
 
     public static void mainMenu() {
 
         int selection = 001;
+        User.isLoggedIn = false;
         do {
             boolean isCatch;
             do {
@@ -157,12 +158,11 @@ public class Menu {
                         }
                     } while (isCatch2 == true);
 
-
-                    if (clientNumber == 123456 && "ABC123".equals(clientPassword)) {
+                    if (clientNumber == 111222 && "Admin123".equals(clientPassword)) {
+                        UserAdmin.displayAdminPanelMenu();
+                    } else if (User.isUserNumberAndUserPasswordCorrectSetLogIn(clientNumber, clientPassword)){
                         clientPanelMenu();
-                    } else {
-                        clientPasswordLoginMenu();
-                    }
+                }
                     break;
                 case 0:
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -399,12 +399,12 @@ public class Menu {
                     isCatch = false;
                     System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
                     System.out.println("Your account balance:");
-                    System.out.println("PLN  " + df.format(user1.PLN));
-                    System.out.println("USD  " + df.format(user1.USD));
-                    System.out.println("EUR  " + df.format(user1.EUR));
-                    System.out.println("CZK  " + df.format(user1.CZK));
-                    System.out.println("NOK  " + df.format(user1.NOK));
-                    System.out.println("DKK  " + df.format(user1.DKK));
+                    System.out.println("PLN  " + df.format(User.getLoggedInUser().PLN));
+                    System.out.println("USD  " + df.format(User.getLoggedInUser().USD));
+                    System.out.println("EUR  " + df.format(User.getLoggedInUser().EUR));
+                    System.out.println("CZK  " + df.format(User.getLoggedInUser().CZK));
+                    System.out.println("NOK  " + df.format(User.getLoggedInUser().NOK));
+                    System.out.println("DKK  " + df.format(User.getLoggedInUser().DKK));
                     System.out.println("0. Cancel to previous menu");
 
                     selection = scan.nextInt();
@@ -556,7 +556,11 @@ public class Menu {
         } while (amount < 0);
 
         if (isDeposit == true) {
-            user1.addToUserAccountBalance(amount, currencySelectedToCalculation_Deposit);
+            User.getLoggedInUser().addToUserAccountBalance(amount, currencySelectedToCalculation_Deposit);
+
+
+
+//          user1.addToUserAccountBalance(amount, currencySelectedToCalculation_Deposit);
             balanceHistoryCalculation(currencySelectedToCalculation_Deposit, true, false, false, false, amount);
         } else if (isWithdrawal == true) {
             user1.removeFromUserAccountBalance(amount, currencySelectedToCalculation_Withdrawal);

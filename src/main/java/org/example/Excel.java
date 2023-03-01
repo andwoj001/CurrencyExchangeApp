@@ -39,12 +39,12 @@ public class Excel {
 //            Cell cell = row.getCell(1);
 //            cell.getNumericCellValue();
 
-            user1.PLN = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
-            user1.USD = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
-            user1.EUR = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
-            user1.CZK = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
-            user1.DKK = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
-            user1.NOK = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
+            User.getLoggedInUser().PLN = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
+            User.getLoggedInUser().USD = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
+            User.getLoggedInUser().EUR = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
+            User.getLoggedInUser().CZK = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
+            User.getLoggedInUser().DKK = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
+            User.getLoggedInUser().NOK = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
 
             workbook.close();
             file.close();
@@ -85,12 +85,12 @@ public class Excel {
         Cell cell16 = row1.createCell(6);
 
         cell10.setCellValue("Balance:");
-        cell11.setCellValue(user1.PLN);
-        cell12.setCellValue(user1.USD);
-        cell13.setCellValue(user1.EUR);
-        cell14.setCellValue(user1.CZK);
-        cell15.setCellValue(user1.DKK);
-        cell16.setCellValue(user1.NOK);
+        cell11.setCellValue(User.getLoggedInUser().PLN);
+        cell12.setCellValue(User.getLoggedInUser().USD);
+        cell13.setCellValue(User.getLoggedInUser().EUR);
+        cell14.setCellValue(User.getLoggedInUser().CZK);
+        cell15.setCellValue(User.getLoggedInUser().DKK);
+        cell16.setCellValue(User.getLoggedInUser().NOK);
 
         FileOutputStream fileOut = new FileOutputStream("PlikDoOdczytu.xlsx");
         workbook.write(fileOut);
@@ -113,12 +113,12 @@ public class Excel {
 //            workbook.close();
 //            file.close();
 
-            workbook.getSheetAt(0).getRow(1).getCell(1).setCellValue(user1.PLN);
-            workbook.getSheetAt(0).getRow(1).getCell(2).setCellValue(user1.USD);
-            workbook.getSheetAt(0).getRow(1).getCell(3).setCellValue(user1.EUR);
-            workbook.getSheetAt(0).getRow(1).getCell(4).setCellValue(user1.CZK);
-            workbook.getSheetAt(0).getRow(1).getCell(5).setCellValue(user1.DKK);
-            workbook.getSheetAt(0).getRow(1).getCell(6).setCellValue(user1.NOK);
+            workbook.getSheetAt(0).getRow(1).getCell(1).setCellValue(User.getLoggedInUser().PLN);
+            workbook.getSheetAt(0).getRow(1).getCell(2).setCellValue(User.getLoggedInUser().USD);
+            workbook.getSheetAt(0).getRow(1).getCell(3).setCellValue(User.getLoggedInUser().EUR);
+            workbook.getSheetAt(0).getRow(1).getCell(4).setCellValue(User.getLoggedInUser().CZK);
+            workbook.getSheetAt(0).getRow(1).getCell(5).setCellValue(User.getLoggedInUser().DKK);
+            workbook.getSheetAt(0).getRow(1).getCell(6).setCellValue(User.getLoggedInUser().NOK);
 
             FileOutputStream fileOut = new FileOutputStream("PlikDoOdczytu.xlsx");
             workbook.write(fileOut);
