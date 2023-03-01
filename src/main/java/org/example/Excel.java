@@ -39,12 +39,12 @@ public class Excel {
 //            Cell cell = row.getCell(1);
 //            cell.getNumericCellValue();
 
-            User.getLoggedInUser().PLN = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
-            User.getLoggedInUser().USD = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
-            User.getLoggedInUser().EUR = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
-            User.getLoggedInUser().CZK = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
-            User.getLoggedInUser().DKK = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
-            User.getLoggedInUser().NOK = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
+//            User.getLoggedInUser().PLN = workbook.getSheetAt(0).getRow(1).getCell(1).getNumericCellValue();
+//            User.getLoggedInUser().USD = workbook.getSheetAt(0).getRow(1).getCell(2).getNumericCellValue();
+//            User.getLoggedInUser().EUR = workbook.getSheetAt(0).getRow(1).getCell(3).getNumericCellValue();
+//            User.getLoggedInUser().CZK = workbook.getSheetAt(0).getRow(1).getCell(4).getNumericCellValue();
+//            User.getLoggedInUser().DKK = workbook.getSheetAt(0).getRow(1).getCell(5).getNumericCellValue();
+//            User.getLoggedInUser().NOK = workbook.getSheetAt(0).getRow(1).getCell(6).getNumericCellValue();
 
             workbook.close();
             file.close();

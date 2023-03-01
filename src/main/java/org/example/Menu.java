@@ -7,6 +7,7 @@ package org.example;
 
 //todo: jesli wystapi wyjatek wypisac tekst o co chodzi z wyjatkiem i wyswietlic go na kilka sekund w kosnsoli
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -46,6 +47,7 @@ public class Menu {
     static User user1;
 
     public static void mainMenu() {
+        User.setIsLoggedInForAllUsersToFalse();
 
         int selection = 001;
         User.isLoggedIn = false;
@@ -124,6 +126,8 @@ public class Menu {
     }
 
     public static void clientPasswordLoginMenu() {
+        User.setIsLoggedInForAllUsersToFalse();
+
         int selection = 001;
 
         do {
@@ -161,6 +165,26 @@ public class Menu {
                     if (clientNumber == 111222 && "Admin123".equals(clientPassword)) {
                         UserAdmin.displayAdminPanelMenu();
                     } else if (User.isUserNumberAndUserPasswordCorrectSetLogIn(clientNumber, clientPassword)){
+
+// if user was logged, below is checking existence of Excel file
+                        if (Excel.checkFileExistence()) {
+                            Excel.readFromFileIfExists();
+                        } else {
+                            try {
+                                Excel.createNewFileIfNotExists();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+
+                        System.out.println(User.getLoggedInUser().PLN);
+                        System.out.println(User.getLoggedInUser().USD);
+                        System.out.println(User.getLoggedInUser().EUR);
+                        System.out.println(User.getLoggedInUser().CZK);
+                        System.out.println(User.getLoggedInUser().NOK);
+                        System.out.println(User.getLoggedInUser().DKK);
+
+
                         clientPanelMenu();
                 }
                     break;
@@ -1201,86 +1225,86 @@ public class Menu {
         if ("PLN".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().PLN + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().PLN + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().PLN + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.PLN + " " + currency);
+                stackHistoryPLN.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().PLN + " " + currency);
             }
         } else if ("USD".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().USD + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().USD + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().USD + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.USD + " " + currency);
+                stackHistoryUSD.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().USD + " " + currency);
             }
         } else if ("EUR".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().EUR + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().EUR + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().EUR + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.EUR + " " + currency);
+                stackHistoryEUR.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().EUR + " " + currency);
             }
         } else if ("CZK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().CZK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().CZK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().CZK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.CZK + " " + currency);
+                stackHistoryCZK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().CZK + " " + currency);
             }
         } else if ("NOK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().NOK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().NOK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().NOK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.NOK + " " + currency);
+                stackHistoryNOK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().NOK + " " + currency);
             }
         } else if ("DKK".equals(currency)) {
             if (isDepositBalanceHistory) {
                 sign = "+";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deposit + " || " + "Account balance after transaction: " + User.getLoggedInUser().DKK + " " + currency);
             } else if (isWithdrawalBalanceHistory) {
                 sign = "-";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + withdrawal + " || " + "Account balance after transaction: " + User.getLoggedInUser().DKK + " " + currency);
             } else if (isAddedAfterCurrencyExchangeBalanceHistory) {
                 sign = "+";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + addedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().DKK + " " + currency);
             } else if (isDeductedAfterCurrencyExchangeBalanceHistory) {
                 sign = "-";
-                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + user1.DKK + " " + currency);
+                stackHistoryDKK.push(now() + " | " + sign + amountString + " " + currency + " | " + deductedAfterTransfer + " || " + "Account balance after transaction: " + User.getLoggedInUser().DKK + " " + currency);
             }
         }
 

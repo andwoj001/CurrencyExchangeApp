@@ -100,4 +100,10 @@ public class User {
             }
         } return null; // Jeśli nie znaleziono użytkownika zalogowanego, to zwracamy null
     }
+
+    public static void setIsLoggedInForAllUsersToFalse(){
+        for (User user : UsersList.usersList) {
+            user.isLoggedIn = false; // ustaw pole isLoggedIn na false
+        }
+    }
 }
